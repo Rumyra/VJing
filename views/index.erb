@@ -11,45 +11,79 @@
 
 <body>
 	<div class="container">
-		<section id="controls"></section>
+		<section id="controls">
+			<button id="play-audio">Play Audio</button>
+			<button id="use-mic">Use Mic</button>
+			<audio id="sound-el" src="media/Guilt.mp3"></audio>
+		</section>
 
 		<section id="screen">
 
+			<div id="css">
+				<section id="lights">
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+				</section>
+			</div>
+
+			<div id="video">
+				<video id="video-one" autoplay loop>
+			    <source src="media/thundercats01.mp4" type="video/mp4">
+			  </video>
+			  <video id="video-two" autoplay loop>
+			    <source src="media/he-manSUB01.mp4" type="video/mp4">
+			  </video>
+			</div>
 		</section>
 	</div>
 </body>
 
 <script type="text/javascript">
 
+// ~~~~ SETUP vars
+var audioContext = (window.AudioContext || window.webkitAudioContext);
 
-var mapDiv = document.getElementById('map'),
-		newMap,
-		setCenter = {};
-// refactor into init()
-if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(function (position) {
-		setCenter.lat = position.coords.latitude;
-		setCenter.lng = position.coords.longitude;
-		// see app.js for createMap function (creates a google map)
-		newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
-		showRoute();
-	});
-} else {
-	console.warn('sorry, geolocation not supported');
+var audioAPI = new audioContext,
+  analyserNode = audioAPI.createAnalyser();
+  frequencyData = new Uint8Array(1024),
+	soundEl = document.getElementById('sound-el'),
+	audioFileSource = audioAPI.createMediaElementSource(soundEl),
+	playButton = document.getElementById('play-audio'),
+	lightEls = document.getElementsByTagName('i');
+
+// ~~~~ ANALYSER
+analyserNode.fftSize = 2048;
+
+var connectAnalyser = function connectAnalyser(audioSource, analyserNode) {
+	audioSource.connect(analyserNode);
+	analyserNode.connect(audioAPI.destination);
 }
 
-function showRoute() {
-	var destinationForm = document.forms[0];
-	destinationForm.onsubmit = function(e) {
-		e.preventDefault();
-		var dest = destinationForm.destination.value;
-		// see app.js for the calculateRoute function (uses google maps directions service to give route)
-		calculateRoute('Brighton', dest, newMap);
+//play track & start lights
+var playTrack = function playTrack(buttonEl) {
+	buttonEl.onclick = function() {
+		if (soundEl.paused) {
+			soundEl.play();
+			connectAnalyser(audioFileSource, analyserNode);
+			analyseCss(lightEls, frequencyData, analyserNode);
+		}
 	}
 }
 
+//switch to mic input
+
+//switch to play track
+
+//keep track playing switch to video with MIDI
+
+
+// var playPauseAudioTrack = function playPauseAudioTrack(audioEl,)
+
 function init() {
-	
+	playTrack(playButton);
 }
 init();
 

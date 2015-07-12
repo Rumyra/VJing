@@ -23,58 +23,63 @@ body {
 }
 
 .container {
-  width: 70%; min-width: 800px;
-  margin: 0px auto; padding: 2% 0px;
+  margin: 1%; padding: 0px;
   font-size: 1.2em;
 }
 
-p {margin:1em;}
-.form-field {margin:1em;}
-label, input {width:30%; font-size: 100%;}
-input {border:2px solid grey; padding:0.5em 1em;}
-input[type="submit"] {width:auto;}
+#controls {
+  height: 4vh; width: 100%;
+  -webkit-box-sizing: border-box;
+  border: 1px solid darkgrey;
 
-
-
-#map {width:100%; height:500px; border:1px solid black;}
-
-#golden-condor {
-  opacity:0;
-  width:593px; height:251px;
-  background: transparent url('golden-condor.png') no-repeat left top;
+  display: -webkit-flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
 }
-#mcog {
-  opacity: 0;
-  position: absolute; top:80px; left:25%;
-  width:50%; height:auto;
-  border:2px solid white; box-shadow: 1px 1px 10px black;
+#controls button {
+  width: 6%;
+  -webkit-box-sizing: border-box;
+  color: white;
+  cursor: pointer;
 }
 
-#mario-bros {
-  opacity:0;
-  width:499px; height:552px;
-  background: transparent url('marioBros.png') no-repeat left top;
-}
-
-/*#soundFile {display: none;}*/
-#mapStuff {opacity: 1;}
-#moon {
-  opacity: 0; display: none;
-  position: absolute; top:0px; left:0px;
-  width: 100vw; height: 100vh;
+#screen {
+  height: 92vh; width:100%;
+  -webkit-box-sizing: border-box;
+  overflow: hidden; position: relative;
   background-color: black;
-  -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
-  perspective: 1000px;
+  border: 1px solid grey;
 }
-#light-side {
-  margin:200px auto;
-  width: 740px; height: 454px;
-  background:black url('moon.jpg') no-repeat center center;
-  transform-origin: bottom left;
-  -webkit-backface-visibility:visible;
-  -moz-backface-visibility:visible;
-  backface-visibility:visible;
+
+/*~~~ CSS created 'tracks'*/
+#css {
+
+}
+#lights {
+  /*display: none;*/
+  margin: 1%;
+  display: -webkit-flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+#lights i {
+  display:inline-block; margin:2%;
+  width:50px; height:50px;
+  background-color:hsla(0, 80%, 50%, 1);
+  border:10px solid hsla(0, 80%, 50%, 1);
+  border-radius:2px;
+  opacity:0.2;
+}
+
+
+/*~~~ Video clip 'tracks'*/
+#video {
+  display: none;
+}
+#video video {
+  width:100%; height:auto;
+  position: absolute; top:-13%; left:0px;
+
 }
 
 
