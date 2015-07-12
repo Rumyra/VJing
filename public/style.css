@@ -1,0 +1,82 @@
+/*simple reset*/
+html, body, div, span, applet, object, iframe,
+header, hgroup, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, time,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+figure, figcaption, video, audio, img,
+fieldset, form, label, legend, input, button, select,
+table, caption, tbody, tfoot, thead, tr, th, td,
+section, article, canvas, nav, footer, aside,
+figure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline; }
+
+body {
+  font-size:100%;
+  font-family: 'helvetica neue' helvetica arial sans-serif;
+}
+
+.container {
+  width: 70%; min-width: 800px;
+  margin: 0px auto; padding: 2% 0px;
+  font-size: 1.2em;
+}
+
+p {margin:1em;}
+.form-field {margin:1em;}
+label, input {width:30%; font-size: 100%;}
+input {border:2px solid grey; padding:0.5em 1em;}
+input[type="submit"] {width:auto;}
+
+
+
+#map {width:100%; height:500px; border:1px solid black;}
+
+#golden-condor {
+  opacity:0;
+  width:593px; height:251px;
+  background: transparent url('golden-condor.png') no-repeat left top;
+}
+#mcog {
+  opacity: 0;
+  position: absolute; top:80px; left:25%;
+  width:50%; height:auto;
+  border:2px solid white; box-shadow: 1px 1px 10px black;
+}
+
+#mario-bros {
+  opacity:0;
+  width:499px; height:552px;
+  background: transparent url('marioBros.png') no-repeat left top;
+}
+
+/*#soundFile {display: none;}*/
+#mapStuff {opacity: 1;}
+#moon {
+  opacity: 0; display: none;
+  position: absolute; top:0px; left:0px;
+  width: 100vw; height: 100vh;
+  background-color: black;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
+}
+#light-side {
+  margin:200px auto;
+  width: 740px; height: 454px;
+  background:black url('moon.jpg') no-repeat center center;
+  transform-origin: bottom left;
+  -webkit-backface-visibility:visible;
+  -moz-backface-visibility:visible;
+  backface-visibility:visible;
+}
+
+
+
+

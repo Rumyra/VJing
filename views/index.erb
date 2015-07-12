@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<meta name="viewport" content="width=initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></head>
+	<title>VJing Demo</title>
+	<link type="text/css" href="style.css" rel="stylesheet" media="screen">
+	<script src="app.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<section id="controls"></section>
+
+		<section id="screen">
+
+		</section>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+
+var mapDiv = document.getElementById('map'),
+		newMap,
+		setCenter = {};
+// refactor into init()
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function (position) {
+		setCenter.lat = position.coords.latitude;
+		setCenter.lng = position.coords.longitude;
+		// see app.js for createMap function (creates a google map)
+		newMap = createMap(mapDiv, setCenter.lat, setCenter.lng);
+		showRoute();
+	});
+} else {
+	console.warn('sorry, geolocation not supported');
+}
+
+function showRoute() {
+	var destinationForm = document.forms[0];
+	destinationForm.onsubmit = function(e) {
+		e.preventDefault();
+		var dest = destinationForm.destination.value;
+		// see app.js for the calculateRoute function (uses google maps directions service to give route)
+		calculateRoute('Brighton', dest, newMap);
+	}
+}
+
+function init() {
+	
+}
+init();
+
+</script>
+
+</html>
