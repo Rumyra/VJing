@@ -14,7 +14,7 @@
 		<section id="controls">
 			<button id="play-audio">Play Audio</button>
 			<button id="use-mic">Use Mic</button>
-			<audio id="sound-el" src="media/Guilt.mp3"></audio>
+			<audio id="simon" src="media/Guilt.mp3"></audio>
 		</section>
 
 		<section id="screen">
@@ -44,32 +44,78 @@
 <script type="text/javascript">
 
 // ~~~~ SETUP vars
-var audioContext = (window.AudioContext || window.webkitAudioContext);
+var AudioContext = (window.AudioContext || window.webkitAudioContext);
 
-var audioAPI = new audioContext,
-  analyserNode = audioAPI.createAnalyser();
-  frequencyData = new Uint8Array(1024),
-	soundEl = document.getElementById('sound-el'),
-	audioFileSource = audioAPI.createMediaElementSource(soundEl),
+var simonSoundEl = document.getElementById('simon'),
 	playButton = document.getElementById('play-audio'),
-	lightEls = document.getElementsByTagName('i');
-
+	lightEls = document.getElementsByTagName('i'),
+	videoElOne = document.getElementById('video-one'),
+	videoElTwo = document.getElementById('video-two'),
+	videoCont = document.getElementById('video'),
+	cssCont = document.getElementById('css'),
+	audioAPI = new AudioContext,
+	guiltMp3 = audioAPI.createMediaElementSource(simonSoundEl),
+  analyserNode = audioAPI.createAnalyser(),
+  frequencyData = new Uint8Array(1024);
+	
 // ~~~~ ANALYSER
 analyserNode.fftSize = 2048;
 
-var connectAnalyser = function connectAnalyser(audioSource, analyserNode) {
-	audioSource.connect(analyserNode);
+var playGuilt = function playGuilt() {
+	guiltMp3.connect(analyserNode);
+	guiltMp3.connect(audioAPI.destination);
 	analyserNode.connect(audioAPI.destination);
+	simonSoundEl.play();
+	flashLights();
+	mixVids();
+}
+
+var flashLights = function flashLights() {
+	requestAnimationFrame(flashLights);
+  //constantly getting feedback from data
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  var totalElements = lightEls.length;
+
+  for (var i=0; i<totalElements; i++) {
+    //set light colours
+    var elementColour = i*10;
+    lightEls[i].style.backgroundColor = 'hsla('+elementColour+',  80%, 50%, 0.8)';
+    lightEls[i].style.borderColor = 'hsla('+elementColour+',  80%, 50%, 1)';
+    //flash on frequency
+    var freqDataKey = i*5;
+    if (frequencyData[freqDataKey] > 140){
+      //start animation on element
+      lightEls[i].style.opacity = "1";
+    } else {
+      lightEls[i].style.opacity = "0.2";
+    }
+  }
+}
+
+var mixVids = function mixVids() {
+	requestAnimationFrame(mixVids);
+  //constantly getting feedback from data
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  for (var i=0; i<49; i++) {
+    var freqDataKey = i*8;
+    if (frequencyData[freqDataKey] > 160){
+      if (i<10) {
+        videoElTwo.style.opacity = '1';
+      } else {
+        videoElTwo.style.opacity = '0';
+      }
+    }
+  }
 }
 
 //play track & start lights
-var playTrack = function playTrack(buttonEl) {
-	buttonEl.onclick = function() {
-		if (soundEl.paused) {
-			soundEl.play();
-			connectAnalyser(audioFileSource, analyserNode);
-			analyseCss(lightEls, frequencyData, analyserNode);
-		}
+playButton.onclick = function() {
+	if (simonSoundEl.paused) {
+		playGuilt();
+	} else {
+		simonSoundEl.pause();
 	}
 }
 
@@ -78,12 +124,60 @@ var playTrack = function playTrack(buttonEl) {
 //switch to play track
 
 //keep track playing switch to video with MIDI
+// ----------------MIDI SHIZZLE
+var midi, data;
+// request MIDI access
+if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess({
+        sysex: false
+    }).then(onMIDISuccess, onMIDIFailure);
+} else {
+    alert("No MIDI support in your browser.");
+}
+
+// midi functions
+function onMIDISuccess(midiAccess) {
+    // when we get a succesful response, run this code
+    midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
+
+    var inputs = midi.inputs.values();
+    // loop over all available inputs and listen for any MIDI input
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+        // each time there is a midi message call the onMIDIMessage function
+        input.value.onmidimessage = onMIDIMessage;
+    }
 
 
-// var playPauseAudioTrack = function playPauseAudioTrack(audioEl,)
+}
+
+function onMIDIFailure(error) {
+    // when we get a failed response, run this code
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
+}
+
+function onMIDIMessage(message) {
+    data = message.data; // this gives us our [command/channel, note, velocity] data.
+    console.log('MIDI data', data); // MIDI data [144, 63, 73]
+
+    // probably should be a switch case but what evs
+    // show heman & thundercats video
+    if ( (data[0] === 192) && (data[1] === 0) ) {
+    	console.log('rah');
+    	showVideo(videoCont, cssCont);
+    }
+
+    //show lights
+    if ( (data[0] === 192) && (data[1] === 4) ) {
+    	console.log('rah');
+    	showCss(videoCont, cssCont);
+    }
+
+    return data;
+}
+
 
 function init() {
-	playTrack(playButton);
+	// playTrack(playButton);
 }
 init();
 
