@@ -6,6 +6,8 @@ require 'bundler/setup'
 # still need to do this
 require 'sinatra'
 
+set :port, 9494
+
 get '/' do
 	erb :index
 end

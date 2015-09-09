@@ -55,6 +55,7 @@ body {
 #css {
 
 }
+#css section {position: absolute;}
 #lights {
   /*display: none;*/
   margin: 1%;
@@ -70,7 +71,17 @@ body {
   border-radius:2px;
   opacity:0.2;
 }
-
+#circles {
+  display: none;
+}
+#circles b {
+  position: absolute;
+  width:50px; height:50px;
+  background-color:hsla(0, 80%, 50%, 1);
+  border:10px solid hsla(0, 80%, 50%, 1);
+  border-radius:25px;
+  opacity:0.2;
+}
 
 /*~~~ Video clip 'tracks'*/
 #video {
@@ -82,6 +93,14 @@ body {
 
 }
 
+/*black & white covers fro fading in and out*/
+#black, #white {
+  height: 92vh; width:100%;
+  position: absolute; top:0px; left:0px;
+  opacity: 0;
+}
+#black {background-color: black;}
+#white {background-color: white;}
 
 
 
