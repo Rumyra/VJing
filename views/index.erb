@@ -15,7 +15,7 @@
 		<section id="controls">
 			<button id="play-audio">Play Audio</button>
 			<button id="use-mic">Use Mic</button>
-			<audio id="simon" src="media/Guilt.mp3"></audio>
+			<audio id="simon" src="media/Guilt.mp3" loop></audio>
 		</section>
 
 		<section id="screen">
@@ -38,10 +38,10 @@
 
 			<div id="video">
 				<video id="video-one" autoplay loop>
-			    <source src="media/80sIntros/thundercats01.mp4" type="video/mp4">
+          <source src="media/80sIntros/he-manSUB01.mp4" type="video/mp4">
 			  </video>
 			  <video id="video-two" autoplay loop>
-			    <source src="media/80sIntros/he-manSUB01.mp4" type="video/mp4">
+          <source src="media/80sIntros/thundercats01.mp4" type="video/mp4">
 			  </video>
 			</div>
 
@@ -106,15 +106,16 @@ var flashLights = function flashLights() {
     }
   }
 }
-
+var threshold = 160;
 var mixVids = function mixVids() {
+  console.log('Threshold for mix: ' + threshold);
 	requestAnimationFrame(mixVids);
   //constantly getting feedback from data
   analyserNode.getByteFrequencyData(frequencyData);
 
   for (var i=0; i<49; i++) {
     var freqDataKey = i*8;
-    if (frequencyData[freqDataKey] > 160){
+    if (frequencyData[freqDataKey] > threshold){
       if (i<10) {
         videoElTwo.style.opacity = '1';
       } else {
@@ -168,42 +169,98 @@ function onMIDIFailure(error) {
     // when we get a failed response, run this code
     console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
 }
-console.log(akaiControls.prog1.PAD.pad1.onPress[0]);
 
-var vidSource = '';
+var vidFile = 'he-manSUB01';
 function onMIDIMessage(message) {
     data = message.data; // this gives us our [command/channel, note, velocity] data.
     console.log('MIDI data', data); // MIDI data [144, 63, 73]
 
 
     // if prog 1 values show video
-    if ( data[0] === (akaiControls.prog1.PAD.pad1.onPress[0] || akaiControls.prog1.progChng.pad1[0] || akaiControls.prog1.CC.pad1.onPress[0]) ) {
+    if ( data[0] === akaiControls.prog1.PAD.pad1.onPress[0] || akaiControls.prog1.progChng.pad1[0] ) {
+
 
       // show vid cont here
-      
-      if (data[0] === akaiControls.prog1.PAD.pad1.onPress[0]) {
-        switch (data[1]) {
-          case [akaiControls.prog1.PAD.pad1.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[0]; break;
-          case [akaiControls.prog1.PAD.pad2.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[1]; break;
-          case [akaiControls.prog1.PAD.pad3.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[2]; break;
-          case [akaiControls.prog1.PAD.pad4.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[3]; break;
-          case [akaiControls.prog1.PAD.pad5.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[4]; break;
-          case [akaiControls.prog1.PAD.pad6.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[5]; break;
-          case [akaiControls.prog1.PAD.pad7.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[6]; break;
-          case [akaiControls.prog1.PAD.pad8.onPress[1]]:
-          vidSource = vidSources.eightiesIntros[7]; break;
-        }        
-      }
+      showVideo(videoCont, cssCont);
+      // if on PAD or ProgChng set video source
+      switch (data[1]) {
+        case akaiControls.prog1.PAD.pad1.onPress[1]:
+          vidFile = vidSources.eightiesIntros[0];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad2.onPress[1]:
+          vidFile = vidSources.eightiesIntros[1];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad3.onPress[1]:
+          vidFile = vidSources.eightiesIntros[2];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad4.onPress[1]:
+          vidFile = vidSources.eightiesIntros[3];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+
+        case akaiControls.prog1.PAD.pad5.onPress[1]:
+          vidFile = vidSources.eightiesIntros[4];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad6.onPress[1]:
+          vidFile = vidSources.eightiesIntros[5];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad7.onPress[1]:
+          vidFile = vidSources.eightiesIntros[6];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad8.onPress[1]:
+          vidFile = vidSources.eightiesIntros[7];
+          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
 
         
+        case akaiControls.prog1.progChng.pad1[1]:
+          vidFile = vidSources.eightiesIntros[8];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad2[1]:
+          vidFile = vidSources.eightiesIntros[9];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad3[1]:
+          vidFile = vidSources.eightiesIntros[10];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad4[1]:
+          vidFile = vidSources.eightiesIntros[11];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
 
+        case akaiControls.prog1.progChng.pad5[1]:
+          vidFile = vidSources.eightiesIntros[12];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad6[1]:
+          vidFile = vidSources.eightiesIntros[13];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad7[1]:
+          vidFile = vidSources.eightiesIntros[14];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad8[1]:
+          vidFile = vidSources.eightiesIntros[15];
+          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          break;
+
+        default: vidFile = "he-manSUB01";
+      }
+
+    }
+
+    if ( (data[0] === 176) && (data[1] === 4) ) {
+      threshold = data[2]*2;
+      console.log('threshold:'+threshold);
     }
 
     // else if prog 2 values show css
@@ -214,28 +271,28 @@ function onMIDIMessage(message) {
 
     // probably should be a switch case but what evs
     // show heman & thundercats video - cats on vid one
-    if ( (data[0] === 192) && (data[1] === 0) ) {
-    	showVideo(videoCont, cssCont);
-    	changeVidSrc(videoElOne, 'media/thundercats01.mp4');
-    }
+    // if ( (data[0] === 192) && (data[1] === 0) ) {
+    // 	showVideo(videoCont, cssCont);
+    // 	changeVidSrc(videoElOne, 'media/thundercats01.mp4');
+    // }
     // heman on vid two
-    if ( (data[0] === 192) && (data[1] === 1) ) {
-    	changeVidSrc(videoElTwo, 'media/he-manSUB01.mp4');
-    }
+    // if ( (data[0] === 192) && (data[1] === 1) ) {
+    // 	changeVidSrc(videoElTwo, 'media/he-manSUB01.mp4');
+    // }
     // swap cats for dangermouse vid one
-    if ( (data[0] === 192) && (data[1] === 2) ) {
-    	changeVidSrc(videoElOne, 'media/dangermouse.mp4');
-    }
+    // if ( (data[0] === 192) && (data[1] === 2) ) {
+    // 	changeVidSrc(videoElOne, 'media/dangermouse.mp4');
+    // }
     // swap heman for banana vid two
-    if ( (data[0] === 192) && (data[1] === 3) ) {
-    	changeVidSrc(videoElTwo, 'media/bananaman.mp4');
-    }
+    // if ( (data[0] === 192) && (data[1] === 3) ) {
+    // 	changeVidSrc(videoElTwo, 'media/bananaman.mp4');
+    // }
 
 
     //show lights
-    if ( (data[0] === 192) && (data[1] === 4) ) {
-    	showCss(videoCont, cssCont);
-    }
+    // if ( (data[0] === 192) && (data[1] === 4) ) {
+    // 	showCss(videoCont, cssCont);
+    // }
 
     // dial for black & white
     if ( (data[0] === 176) && (data[1] === 5) ) {

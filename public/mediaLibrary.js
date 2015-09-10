@@ -1,20 +1,27 @@
 var vidSources = {
   eightiesIntros: [
-    "bananaman",
     "he-manSUB01",
-    "dangermouse",
-    "thundercats01",
+    "defenders",
     "battlePlanets",
+    "mcog",
+    
+    "bananaman",
     "countDuck",
     "pigeonSt",
-    "defenders",
-    "dogtanian",
-    "dungeons&dragons",
-    "powerRangers",
     "mrBenn",
-    "mcog",
+
+
+    "thundercats01",
     "shera",
+    "dungeons&dragons",
     "tmnt",
-    "trapDoor"
+    
+    "dangermouse",
+    "dogtanian",
+    "trapDoor",
+    "powerRangers"
+    
   ]
 }
+
+//fireman sam - jason & wheeled warriors - jamie magic torch - fraggle rock - ulessys - poddingto peas - power puff girls - pokemon - thunderbirds - captain planets - gummi bears - care bears - my little pony
