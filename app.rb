@@ -11,3 +11,11 @@ set :port, 9494
 get '/' do
 	erb :index
 end
+
+get '/violet' do
+  erb :violet
+end
+
+get '/humans' do
+  erb :humans
+end

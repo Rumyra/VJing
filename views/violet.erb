@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<title>VJing Demo</title>
+	<link type="text/css" href="style.css" rel="stylesheet" media="screen">
+  <script src="MIDIValues.js"></script>
+  <script src="mediaLibrary.js"></script>
+	<script src="app.js"></script>
+  <style type="text/css">
+  #screen {height: 97vh;}
+  #video {display: block;}
+  </style>
+</head>
+
+<body>
+	<div class="container">
+		<!-- <section id="controls">
+			<button id="play-audio">Play Audio</button>
+			<button id="use-mic">Use Mic</button>
+			<audio id="simon" src="media/Guilt.mp3" loop></audio>
+		</section> -->
+
+		<section id="screen">
+
+			<!-- <div id="css">
+				<section id="lights">
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+				</section>
+
+				<section id="circles">
+					<b></b><b></b><b></b>
+					<b></b><b></b><b></b>
+					<b></b><b></b><b></b>
+				</section>
+			</div> -->
+
+			<div id="video">
+				<video id="video-one" autoplay loop>
+          <source src="media/violet/sunset.mp4" type="video/mp4">
+			  </video>
+			  <video id="video-two" autoplay loop>
+          <source src="media/violet/meeting.mp4" type="video/mp4">
+			  </video>
+			</div>
+
+			<div id="black"></div>
+			<div id="white"></div>
+
+		</section>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+// ~~~~ SETUP vars
+var AudioContext = (window.AudioContext || window.webkitAudioContext);
+
+var simonSoundEl = document.getElementById('simon'),
+	playButton = document.getElementById('play-audio'),
+	lightEls = document.getElementsByTagName('i'),
+	videoElOne = document.getElementById('video-one'),
+	videoElTwo = document.getElementById('video-two'),
+	videoCont = document.getElementById('video'),
+	cssCont = document.getElementById('css'),
+	blackEl = document.getElementById('black'),
+	whiteEl = document.getElementById('white'),
+
+	audioAPI = new AudioContext,
+	// guiltMp3 = audioAPI.createMediaElementSource(simonSoundEl),
+  // analyserNode = audioAPI.createAnalyser(),
+  frequencyData = new Uint8Array(1024);
+	
+// set up getUserMedia
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+// ~~~~ ANALYSER
+// analyserNode.fftSize = 2048;
+
+// var playGuilt = function playGuilt() {
+// 	guiltMp3.connect(analyserNode);
+// 	guiltMp3.connect(audioAPI.destination);
+// 	analyserNode.connect(audioAPI.destination);
+// 	simonSoundEl.play();
+// 	flashLights();
+// 	mixVids();
+// }
+
+// pick up on ambient sounds
+
+// create an audio API analyser node and connect to source
+function createAnalyserNode(audioSource) {
+  analyserNode = audioAPI.createAnalyser();
+  analyserNode.fftSize = 2048;
+  audioSource.connect(analyserNode);
+}
+
+function gotStream(stream) {
+    // Create an audio input from the stream.
+    var audioSource = audioAPI.createMediaStreamSource(stream);
+    createAnalyserNode(audioSource);
+    mixVids();
+}
+
+// pipe in analysing to getUserMedia
+navigator.getUserMedia(
+  {audio:true},
+  gotStream,
+  function(err) {
+    console.log("The following error occured: " + err);
+  } 
+);
+
+// var flashLights = function flashLights() {
+// 	requestAnimationFrame(flashLights);
+//   //constantly getting feedback from data
+//   analyserNode.getByteFrequencyData(frequencyData);
+
+//   var totalElements = lightEls.length;
+
+//   for (var i=0; i<totalElements; i++) {
+//     //set light colours
+//     var elementColour = i*10;
+//     lightEls[i].style.backgroundColor = 'hsla('+elementColour+',  80%, 50%, 0.8)';
+//     lightEls[i].style.borderColor = 'hsla('+elementColour+',  80%, 50%, 1)';
+//     //flash on frequency
+//     var freqDataKey = i*5;
+//     if (frequencyData[freqDataKey] > 140){
+//       //start animation on element
+//       lightEls[i].style.opacity = "1";
+//     } else {
+//       lightEls[i].style.opacity = "0.2";
+//     }
+//   }
+// }
+var threshold = 160;
+var mixVids = function mixVids() {
+  console.log('Threshold for mix: ' + threshold);
+	requestAnimationFrame(mixVids);
+  //constantly getting feedback from data
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  for (var i=0; i<49; i++) {
+    var freqDataKey = i*8;
+    if (frequencyData[freqDataKey] > threshold){
+      if (i<10) {
+        videoElTwo.style.opacity = '1';
+      } else {
+        videoElTwo.style.opacity = '0';
+      }
+    }
+  }
+}
+
+//play track & start lights
+// playButton.onclick = function() {
+// 	if (simonSoundEl.paused) {
+// 		playGuilt();
+// 	} else {
+// 		simonSoundEl.pause();
+// 	}
+// }
+
+//switch to mic input
+
+//switch to play track
+
+//keep track playing switch to video with MIDI
+// ----------------MIDI SHIZZLE
+var midi, data;
+// request MIDI access
+if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess({
+        sysex: false
+    }).then(onMIDISuccess, onMIDIFailure);
+} else {
+    alert("No MIDI support in your browser.");
+}
+
+// midi functions
+function onMIDISuccess(midiAccess) {
+    // when we get a succesful response, run this code
+    midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
+
+    var inputs = midi.inputs.values();
+    // loop over all available inputs and listen for any MIDI input
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+        // each time there is a midi message call the onMIDIMessage function
+        input.value.onmidimessage = onMIDIMessage;
+    }
+
+
+}
+
+function onMIDIFailure(error) {
+    // when we get a failed response, run this code
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
+}
+
+var vidFile = 'sunset';
+function onMIDIMessage(message) {
+    data = message.data; // this gives us our [command/channel, note, velocity] data.
+    console.log('MIDI data', data); // MIDI data [144, 63, 73]
+
+
+    // if prog 1 values show video
+    if ( data[0] === akaiControls.prog1.PAD.pad1.onPress[0] || akaiControls.prog1.progChng.pad1[0] ) {
+
+
+      // show vid cont here
+      // showVideo(videoCont, cssCont);
+      // if on PAD or ProgChng set video source
+      switch (data[1]) {
+        case akaiControls.prog1.PAD.pad1.onPress[1]:
+          vidFile = vidSources.violetsClips[0];
+          changeVidSrc(videoElOne, 'media/violet/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad2.onPress[1]:
+          vidFile = vidSources.violetsClips[1];
+          changeVidSrc(videoElOne, 'media/violet/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.PAD.pad3.onPress[1]:
+          vidFile = vidSources.violetsClips[2];
+          changeVidSrc(videoElOne, 'media/violet/'+vidFile+'.mp4');
+          break;
+        
+        case akaiControls.prog1.progChng.pad1[1]:
+          vidFile = vidSources.violetsClips[3];
+          changeVidSrc(videoElTwo, 'media/violet/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad2[1]:
+          vidFile = vidSources.violetsClips[4];
+          changeVidSrc(videoElTwo, 'media/violet/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad3[1]:
+          vidFile = vidSources.violetsClips[5];
+          changeVidSrc(videoElTwo, 'media/violet/'+vidFile+'.mp4');
+          break;
+        case akaiControls.prog1.progChng.pad4[1]:
+          vidFile = vidSources.violetsClips[6];
+          changeVidSrc(videoElTwo, 'media/violet/'+vidFile+'.mp4');
+          break;
+
+        default: vidFile = "sunset";
+      }
+
+    }
+
+    if ( (data[0] === 176) && (data[1] === 4) ) {
+      threshold = data[2]*2;
+      console.log('threshold:'+threshold);
+    }
+
+    // else if prog 2 values show css
+
+
+    // else if prog 3 values show fractals
+
+
+    // probably should be a switch case but what evs
+    // show heman & thundercats video - cats on vid one
+    // if ( (data[0] === 192) && (data[1] === 0) ) {
+    // 	showVideo(videoCont, cssCont);
+    // 	changeVidSrc(videoElOne, 'media/thundercats01.mp4');
+    // }
+    // heman on vid two
+    // if ( (data[0] === 192) && (data[1] === 1) ) {
+    // 	changeVidSrc(videoElTwo, 'media/he-manSUB01.mp4');
+    // }
+    // swap cats for dangermouse vid one
+    // if ( (data[0] === 192) && (data[1] === 2) ) {
+    // 	changeVidSrc(videoElOne, 'media/dangermouse.mp4');
+    // }
+    // swap heman for banana vid two
+    // if ( (data[0] === 192) && (data[1] === 3) ) {
+    // 	changeVidSrc(videoElTwo, 'media/bananaman.mp4');
+    // }
+
+
+    //show lights
+    // if ( (data[0] === 192) && (data[1] === 4) ) {
+    // 	showCss(videoCont, cssCont);
+    // }
+
+    // dial for black & white
+    if ( (data[0] === 176) && (data[1] === 5) ) {
+    	var opacityVal = data[2]/100;
+    	blackEl.style.opacity = opacityVal;
+    }
+    if ( (data[0] === 176) && (data[1] === 6) ) {
+    	var opacityVal = data[2]/100;
+    	whiteEl.style.opacity = opacityVal;
+    }
+    if ( (data[0] === 176) && (data[1] === 7) ) {
+    	var zoomVal = (data[2]*0.1)+1;
+    	cssCont.style.transform = 'scale('+zoomVal+')';
+    	videoCont.style.transform = 'scale('+zoomVal+')';
+    }
+    if ( (data[0] === 176) && (data[1] === 8) ) {
+    	if (data[2] > 4) {
+    		var zoomVal = (4/data[2]);
+    	} else {var zoomVal = 1};
+    	
+    	cssCont.style.transform = 'scale('+zoomVal+')';
+    	videoCont.style.transform = 'scale('+zoomVal+')';
+    }
+    if ( (data[0] === 176) && (data[1] === 1) ) {
+    	if (data[2] === 0) {
+    		cssCont.style.backgroundColor = 'black';
+    	} else {
+	    	var colourVal = data[2]*3;
+	    	cssCont.style.backgroundColor = 'hsla('+colourVal+',50%,20%,1)';
+	    }
+    }
+
+
+    return data;
+}
+
+
+function init() {
+	// playTrack(playButton);
+}
+init();
+
+</script>
+
+</html>
