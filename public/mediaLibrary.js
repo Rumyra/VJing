@@ -32,6 +32,11 @@ var vidSources = {
     "walking",
     "firstKiss",
     "hospital"
+  ],
+
+  cssIds: [
+    "squareLights",
+    "difSizedCircles"
   ]
 }
 

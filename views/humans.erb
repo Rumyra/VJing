@@ -10,7 +10,7 @@
 	<script src="app.js"></script>
 
   <style type="text/css">
-  .container {margin:0px;}
+  .container {margin:0px; cursor: none;}
   #screen {height: 100vh; background-color: white;}
   #lights {margin:0px; overflow:hidden;}
   #lights div {
@@ -40,16 +40,16 @@
             <img src="media/goodLove/love4.png" />
           </div>
           <div class="imageBox">
-            <img src="media/goodLove/goodlove.jpg" />
-          </div>
-          <div class="imageBox">
-            <img src="media/goodLove/trent.png" />
-          </div>
-          <div class="imageBox">
-            <img src="media/goodLove/love4.png" />
+            <img src="media/goodLove/love6.jpg" />
           </div>
           <div class="imageBox">
             <img src="media/goodLove/love5.png" />
+          </div>
+          <div class="imageBox">
+            <img src="media/goodLove/goodlove.jpg" />
+          </div>
+          <div class="imageBox">
+            <img src="media/goodLove/buzzjam.jpg" />
           </div>
 				</section>
 
@@ -273,7 +273,7 @@ function onMIDIMessage(message) {
 
 
       // show vid cont here
-      showVideo(videoCont, cssCont);
+      // showVideo(videoCont, cssCont);
       // if on PAD or ProgChng set video source
       switch (data[1]) {
         case akaiControls.prog1.PAD.pad1.onPress[1]:

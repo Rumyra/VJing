@@ -22,6 +22,14 @@ body {
   font-family: 'helvetica neue' helvetica arial sans-serif;
 }
 
+/*for css elements*/
+.cssShow {
+  transition: opacity 400ms;
+}
+.cssHide {
+  opacity: 0;
+}
+
 .container {
   margin: 1%; padding: 0px;
   font-size: 1.2em;
@@ -56,14 +64,14 @@ body {
 
 }
 #css section {position: absolute;}
-#lights {
+#squareLights {
   /*display: none;*/
   margin: 1%;
   display: -webkit-flex;
   -webkit-flex-flow: row wrap;
   justify-content: space-around;
 }
-#lights i {
+#squareLights i {
   display:inline-block; margin:2%;
   width:50px; height:50px;
   background-color:hsla(0, 80%, 50%, 1);
@@ -71,10 +79,12 @@ body {
   border-radius:2px;
   opacity:0.2;
 }
-#circles {
-  display: none;
+#difSizedCircles {
+  display: -webkit-flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
 }
-#circles b {
+#difSizedCircles b {
   position: absolute;
   width:50px; height:50px;
   background-color:hsla(0, 80%, 50%, 1);
