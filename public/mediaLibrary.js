@@ -21,6 +21,22 @@ var vidSources = {
     "trapDoor",
     "powerRangers"
     
+  ],
+
+  violetsClips: [
+    "sunset",
+    "duck",
+    "water",
+
+    "meeting",
+    "walking",
+    "firstKiss",
+    "hospital"
+  ],
+
+  cssIds: [
+    "squareLights",
+    "difSizedCircles"
   ]
 }
 
