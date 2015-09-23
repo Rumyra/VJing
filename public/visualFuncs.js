@@ -33,6 +33,66 @@ var flashLights = function flashLights() {
   }
 }
 
+var sizeCircles = function sizeCircles() {
+  requestAnimationFrame(sizeCircles);
+
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  var totalElements = circleEls.length;
+
+  for (var i=0; i<totalElements; i++) {
+    //set position
+    var elPosLeft = Math.floor((Math.random() * 100) + 1);
+    var elPosTop = Math.floor((Math.random() * 100) + 1);
+    circleEls[i].style.left = elPosLeft+'%';
+    circleEls[i].style.top = elPosTop+'vh';
+    var elementColour = i*10;
+    circleEls[i].style.backgroundColor = 'hsla('+elementColour+',  80%, 50%, 0.8)';
+    circleEls[i].style.borderColor = 'hsla('+elementColour+',  80%, 50%, 1)';
+    //change size on freq
+    var freqDataKey = i*10;
+    if (frequencyData[freqDataKey] > 140){
+      //start animation on element
+      var circSize = frequencyData[freqDataKey]+'px';
+      circleEls[i].style.width = circSize;
+      circleEls[i].style.height = circSize;
+    } else {
+      circleEls[i].style.width = '50px';
+      circleEls[i].style.height = '50px';
+    }
+  }
+}
+
+// var sizeCircles = function sizeCircles() {
+//   requestAnimationFrame(sizeCircles);
+
+//   analyserNode.getByteFrequencyData(frequencyData);
+
+//   var totalElements = circleEls.length;
+
+//   for (var i=0; i<totalElements; i++) {
+//     //set position
+//     var elPosLeft = Math.floor((Math.random() * 100) + 1);
+//     var elPosTop = Math.floor((Math.random() * 100) + 1);
+//     circleEls[i].style.left = elPosLeft+'%';
+//     circleEls[i].style.top = elPosTop+'vh';
+//     var elementColour = i*10;
+//     circleEls[i].style.backgroundColor = 'hsla('+elementColour+',  80%, 50%, 0.8)';
+//     circleEls[i].style.borderColor = 'hsla('+elementColour+',  80%, 50%, 1)';
+//     //change size on freq
+//     var freqDataKey = i*10;
+//     if (frequencyData[freqDataKey] > 140){
+//       //start animation on element
+//       var circSize = frequencyData[freqDataKey]+'px';
+//       circleEls[i].style.width = circSize;
+//       circleEls[i].style.height = circSize;
+//     } else {
+//       circleEls[i].style.width = '50px';
+//       circleEls[i].style.height = '50px';
+//     }
+//   }
+// }
+
 
 
 // VIDEOS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

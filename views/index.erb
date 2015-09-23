@@ -24,7 +24,7 @@
 		<section id="screen">
 
 			<div id="css">
-				<section id="squareLights" class="cssShow">
+				<section id="squareLights">
 					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
 					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
 					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -32,11 +32,23 @@
 					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
 				</section>
 
-				<section id="difSizedCircles" class="cssHide">
+				<section id="difSizedCircles">
 					<b></b><b></b><b></b>
 					<b></b><b></b><b></b>
 					<b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
 				</section>
+
+        <section id="crazyCircles">
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+          <b></b><b></b><b></b>
+        </section>
 			</div>
 
 			<div id="video">
@@ -64,6 +76,7 @@ var simonSoundEl = document.getElementById('simon'),
   playButton = document.getElementById('play-audio'),
 	micButton = document.getElementById('use-mic'),
 	lightEls = document.getElementsByTagName('i'),
+  circleEls = document.getElementsByTagName('b'),
 	videoElOne = document.getElementById('video-one'),
 	videoElTwo = document.getElementById('video-two'),
 	videoCont = document.getElementById('video'),
@@ -71,6 +84,7 @@ var simonSoundEl = document.getElementById('simon'),
 	blackEl = document.getElementById('black'),
 	whiteEl = document.getElementById('white'),
   threshold = 160,
+  elColour = 0,
 
   currentCssEl = document.getElementById('squareLights'),
   nextCssEl,
@@ -93,7 +107,8 @@ var playGuilt = function playGuilt() {
 	guiltMp3.connect(audioAPI.destination);
 	analyserNode.connect(audioAPI.destination);
 	simonSoundEl.play();
-	flashLights();
+  flashLights();
+	sizeCircles();
 	mixVids();
 }
 
@@ -176,17 +191,15 @@ function onMIDIMessage(message) {
 
       switch (data[0], data[1]) {
         case akaiControls.prog1.PAD.pad1.onPress[0], akaiControls.prog1.PAD.pad1.onPress[1]:
-          currentCssEl.classList.toggle('cssHide');
-          squaredLights.classList.toggle('cssShow');
-          nextCssEl = squareLights;
+          squaredLights.style.display = "-webkit-flex";
+          sizedCircles.style.display = "none";
         break;
         case akaiControls.prog1.PAD.pad2.onPress[0], akaiControls.prog1.PAD.pad2.onPress[1]:
-          currentCssEl.classList.toggle('cssHide');
-          sizedCircles.classList.toggle('cssShow');
-          nextCssEl = sizedCircles;
+          squaredLights.style.display = "none";
+          sizedCircles.style.display = "block";
       }
 
-      currentCssEl = nextCssEl;
+      
     }
     // if prog 2 values show 80s cartoons
     else if ( (data[0] === akaiControls.prog2.PAD.pad1.onPress[0]) || (data[0] === akaiControls.prog2.progChng.pad1[0]) ) {
@@ -304,6 +317,9 @@ function onMIDIMessage(message) {
 	    	var colourVal = data[2]*3;
 	    	cssCont.style.backgroundColor = 'hsla('+colourVal+',50%,20%,1)';
 	    }
+    }
+    if ( (data[0] === 176) && (data[1] === 2) ) {
+      elColour = data[2];
     }
 
 

@@ -61,9 +61,9 @@ body {
 
 /*~~~ CSS created 'tracks'*/
 #css {
-
 }
-#css section {position: absolute;}
+#css section {
+}
 #squareLights {
   /*display: none;*/
   margin: 1%;
@@ -80,16 +80,15 @@ body {
   opacity:0.2;
 }
 #difSizedCircles {
-  display: -webkit-flex;
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  display: none;
+  position: relative;
 }
 #difSizedCircles b {
   position: absolute;
   width:50px; height:50px;
   background-color:hsla(0, 80%, 50%, 1);
   border:10px solid hsla(0, 80%, 50%, 1);
-  border-radius:25px;
+  border-radius:100px;
   opacity:0.2;
 }
 
