@@ -1,25 +1,25 @@
 var vidSources = {
   eightiesIntros: [
     "he-manSUB01",
-    "defenders",
-    "battlePlanets",
-    "mcog",
-    
-    "bananaman",
-    "countDuck",
-    "pigeonSt",
+    "powerpuffGirls",
     "mrBenn",
+    "dangermouse",
+    
+    "dungeons&dragons",
+    "defenders",
+    "superted",
+    "he-manSUB01",
 
 
     "thundercats01",
     "shera",
-    "dungeons&dragons",
-    "tmnt",
+    "pokemon",
+    "bananaman",
     
-    "dangermouse",
-    "dogtanian",
+    "battlePlanets",
+    "mcog",
     "trapDoor",
-    "powerRangers"
+    "thundercats01"
     
   ],
 
