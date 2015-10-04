@@ -52,7 +52,7 @@ body {
 }
 
 #screen {
-  height: 92vh; width:100%;
+  height: 94vh; width:100%;
   -webkit-box-sizing: border-box;
   overflow: hidden; position: relative;
   background-color: black;

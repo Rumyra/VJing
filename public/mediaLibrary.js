@@ -36,7 +36,22 @@ var vidSources = {
 
   cssIds: [
     "squareLights",
-    "difSizedCircles"
+    "difSizedCircles",
+    "crazyCircles"
+  ],
+
+  cartoons: [
+    "he-manSUB01",
+    "powerpuffGirls",
+    "mrBenn",
+    "dangermouse",
+    "dungeons&dragons",
+
+    "thundercats01",
+    "shera",
+    "pokemon",
+    "bananaman",
+    "defenders"
   ]
 }
 

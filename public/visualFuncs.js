@@ -7,6 +7,25 @@ var showCss = function showCss(vidEl, cssEl) {
   vidEl.style.display = "none"
 }
 
+// SCREENS ~~~~~~~~~~~~~~~~~~~~~~~~~~
+var mixScreens = function mixScreens() {
+  console.log('Threshold for mix: ' + threshold);
+  requestAnimationFrame(mixScreens);
+  //constantly getting feedback from data
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  for (var i=0; i<49; i++) {
+    var freqDataKey = i*8;
+    if (frequencyData[freqDataKey] > threshold){
+      if (i<10) {
+        rightScreen.style.opacity = '1';
+      } else {
+        rightScreen.style.opacity = '0';
+      }
+    }
+  }
+}
+
 
 // CSS ~~~~~~~~~~~~~~~~~~~~~~~~~
 
