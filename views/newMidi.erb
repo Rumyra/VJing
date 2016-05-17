@@ -253,6 +253,12 @@ function onMIDIMessage(message) {
       showCss(leftVidEl, leftCssEl);
       set = 'css';
     }
+    // if bottom left middle button show abstract
+    if ( (data[0] === iDJcontrols.left.midButs.botLeft.onPress[0]) && (data[1] === iDJcontrols.left.midButs.botLeft.onPress[1]) ) {
+
+      showVideo(leftVidEl, leftCssEl);
+      set = 'abstract';
+    }
     // if top right middle buttons show cartoons
     if ( (data[0] === iDJcontrols.right.midButs.topLeft.onPress[0]) && (data[1] === iDJcontrols.right.midButs.topLeft.onPress[1]) ) {
 
@@ -265,6 +271,12 @@ function onMIDIMessage(message) {
 
       showCss(rightVidEl, rightCssEl);
       set = 'css';
+    }
+    // if bottom right middle button show abstract
+    if ( (data[0] === iDJcontrols.right.midButs.botLeft.onPress[0]) && (data[1] === iDJcontrols.right.midButs.botLeft.onPress[1]) ) {
+
+      showVideo(rightVidEl, rightCssEl);
+      set = 'abstract';
     }
 
     if (set === "css") {
@@ -351,7 +363,74 @@ function onMIDIMessage(message) {
       }
     }
 
+    if (set === 'abstract') {
+      switch (data[0],data[1]) {
+        case iDJcontrols.left.sync.onPress[0],iDJcontrols.left.sync.onPress[1]:
+          vidFile = vidSources.abstract[0];
+          changeVidSrc(videoElOne, 'media/abstract/'+vidFile+'.mp4');
+          console.log('worked');
+        break;
+        case iDJcontrols.left.lloop.onPress[0],iDJcontrols.left.lloop.onPress[1]:
+          vidFile = vidSources.abstract[1];
+          changeVidSrc(videoElOne, 'media/abstract/'+vidFile+'.mp4');
+          console.log(vidFile);
+        break;
+        case iDJcontrols.left.rloop.onPress[0],iDJcontrols.left.rloop.onPress[1]:
+          vidFile = vidSources.abstract[2];
+          changeVidSrc(videoElOne, 'media/abstract/'+vidFile+'.mp4');
+        break;
+        case iDJcontrols.left.butOut.onPress[0],iDJcontrols.left.butOut.onPress[1]:
+          vidFile = vidSources.abstract[3];
+          changeVidSrc(videoElOne, 'media/abstract/'+vidFile+'.mp4');
+        break;
+        
+        case iDJcontrols.right.sync.onPress[0], iDJcontrols.right.sync.onPress[1]:
+          vidFile = vidSources.abstract[4];
+          changeVidSrc(videoElTwo, 'media/abstract/'+vidFile+'.mp4');
+        break;
+        case iDJcontrols.right.lloop.onPress[0], iDJcontrols.right.lloop.onPress[1]:
+          vidFile = vidSources.abstract[5];
+          changeVidSrc(videoElTwo, 'media/abstract/'+vidFile+'.mp4');
+        break;
+        case iDJcontrols.right.rloop.onPress[0], iDJcontrols.right.rloop.onPress[1]:
+          vidFile = vidSources.abstract[6];
+          changeVidSrc(videoElTwo, 'media/abstract/'+vidFile+'.mp4');
+        break;
+        case iDJcontrols.right.butIn.onPress[0], iDJcontrols.right.butIn.onPress[1]:
+          vidFile = vidSources.abstract[7];
+          changeVidSrc(videoElTwo, 'media/abstract/'+vidFile+'.mp4');
+        break;
+      }
+    }
+
+
+    function itsJustMaths(input, range) {
+      return ( (64-input)/64 )*range;
+    }
+    // ADD TOP - STRING EFFECTS - ABSTRACT ALTS
     // effects for left screen
+    // hue on bal
+    if ( (data[0] === iDJcontrols.left.bal.dial[0]) && (data[1] === iDJcontrols.left.bal.dial[1]) ) {
+      var degreeVal;
+      if (data[2] > 64) {
+        degreeVal = (data[2]-64)*3;
+      } else {
+        degreeVal = itsJustMaths(data[2], 180);
+      }
+      videoElOne.style.webkitFilter = "hue-rotate("+degreeVal+"deg)";
+    }
+
+    // brightness on hi
+    if ( (data[0] === iDJcontrols.left.hi.dial[0]) && (data[1] === iDJcontrols.left.hi.dial[1]) ) {
+      var brightVal;
+      if (data[2] > 64) {
+        brightVal = data[2]*1.6;
+      } else {
+        brightVal = data[2]+(data[2]/2);
+      }
+      videoElOne.style.webkitFilter = "brightness("+brightVal+"%)";
+    }
+
     // zoom on mid
     if ( (data[0] === iDJcontrols.left.mid.dial[0]) && (data[1] === iDJcontrols.left.mid.dial[1]) ) {
       var zoomVal;
@@ -362,6 +441,44 @@ function onMIDIMessage(message) {
       }
       leftScreen.style.transform = 'scale('+zoomVal+')';
     }
+
+    // contrast on low
+    if ( (data[0] === iDJcontrols.left.low.dial[0]) && (data[1] === iDJcontrols.left.low.dial[1]) ) {
+      var contrastVal;
+      if (data[2] > 64) {
+        contrastVal = data[2]*1.6;
+      } else {
+        contrastVal = data[2]+(data[2]/2);
+      }
+      videoElOne.style.webkitFilter = "contrast("+contrastVal+"%)";
+    }
+
+    // gray & saturate on gain
+    if ( (data[0] === iDJcontrols.left.gain.dial[0]) && (data[1] === iDJcontrols.left.gain.dial[1]) ) {
+      var satVal;
+      if (data[2] > 64) {
+        satVal = data[2]*1.6;
+      } else {
+        satVal = data[2]+(data[2]/2);
+      }
+      videoElOne.style.webkitFilter = "saturate("+satVal+"%)";
+    }
+
+    // invert & blur on top
+    if ( (data[0] === iDJcontrols.left.top.dial[0]) && (data[1] === iDJcontrols.left.top.dial[1]) ) {
+      var amountVal;
+      if (data[2] > 64) {
+        amountVal = ( (data[2]-63) );
+        videoElOne.style.webkitFilter = "blur("+amountVal+"px)";
+      } else {
+        amountVal = itsJustMaths(data[2], 100);
+        videoElOne.style.webkitFilter = "invert("+amountVal+"%)";
+      }
+    }
+
+
+
+
 
     // effects for right screen
     //zoom on mid

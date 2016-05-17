@@ -43,15 +43,25 @@ var vidSources = {
   cartoons: [
     "he-manSUB01",
     "powerpuffGirls",
-    "mrBenn",
+    "battlePlanets",
     "dangermouse",
     "dungeons&dragons",
 
     "thundercats01",
     "shera",
     "pokemon",
-    "bananaman",
+    "mcog",
     "defenders"
+  ],
+
+  abstract: [
+    "lights",
+    "lights2",
+    "triangle",
+    "drawn",
+    "blackLine",
+    "3dlines",
+    "dots"
   ]
 }
 
