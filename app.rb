@@ -19,3 +19,11 @@ end
 get '/humans' do
   erb :humans
 end
+
+get '/video' do
+  erb :video
+end
+
+get '/newMidi' do
+  erb :newMidi
+end

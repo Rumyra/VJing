@@ -52,7 +52,7 @@ body {
 }
 
 #screen {
-  height: 92vh; width:100%;
+  height: 94vh; width:100%;
   -webkit-box-sizing: border-box;
   overflow: hidden; position: relative;
   background-color: black;
@@ -64,14 +64,14 @@ body {
 }
 #css section {
 }
-#squareLights {
+#squareLights, #difSizedCircles {
   /*display: none;*/
   margin: 1%;
   display: -webkit-flex;
   -webkit-flex-flow: row wrap;
   justify-content: space-around;
 }
-#squareLights i {
+#squareLights i, #difSizedCircles b {
   display:inline-block; margin:2%;
   width:50px; height:50px;
   background-color:hsla(0, 80%, 50%, 1);
@@ -79,18 +79,36 @@ body {
   border-radius:2px;
   opacity:0.2;
 }
-#difSizedCircles {
+#difSizedCircles, #crazyCircles {
   display: none;
   position: relative;
 }
-#difSizedCircles b {
+#difSizedCircles b {opacity: 1;}
+#crazyCircles em {
   position: absolute;
   width:50px; height:50px;
   background-color:hsla(0, 80%, 50%, 1);
   border:10px solid hsla(0, 80%, 50%, 1);
   border-radius:100px;
-  opacity:0.2;
 }
+/*#difSizedCircles b:nth-of-type(1) {top:5vh; left:10vw;}
+#difSizedCircles b:nth-of-type(2) {top:40vh; left:40vw;}
+#difSizedCircles b:nth-of-type(3) {top:20vh; left:60vw;}
+#difSizedCircles b:nth-of-type(4) {top:10vh; left:80vw;}
+#difSizedCircles b:nth-of-type(5) {top:80vh; left:90vw;}
+#difSizedCircles b:nth-of-type(6) {top:10vh; left:35vw;}
+#difSizedCircles b:nth-of-type(7) {top:60vh; left:55vw;}
+#difSizedCircles b:nth-of-type(8) {top:5vh; left:75vw;}
+#difSizedCircles b:nth-of-type(9) {top:30vh; left:15vw;}
+#difSizedCircles b:nth-of-type(10) {top:70vh; left:85vw;}
+#difSizedCircles b:nth-of-type(11) {top:10vh; left:5vw;}
+#difSizedCircles b:nth-of-type(12) {top:35vh; left:95vw;}
+#difSizedCircles b:nth-of-type(13) {top:65vh; left:50vw;}
+#difSizedCircles b:nth-of-type(14) {top:75vh; left:25vw;}
+#difSizedCircles b:nth-of-type(15) {top:25vh; left:90vw;}
+#difSizedCircles b:nth-of-type(16) {top:85vh; left:75vw;}
+#difSizedCircles b:nth-of-type(17) {top:45vh; left:75vw;}
+#difSizedCircles b:nth-of-type(18) {top:50vh; left:20vw;}*/
 
 /*~~~ Video clip 'tracks'*/
 #video {

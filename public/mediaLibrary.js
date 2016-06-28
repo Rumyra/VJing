@@ -1,28 +1,5 @@
 var vidSources = {
-  eightiesIntros: [
-    "he-manSUB01",
-    "defenders",
-    "battlePlanets",
-    "mcog",
-    
-    "bananaman",
-    "countDuck",
-    "pigeonSt",
-    "mrBenn",
-
-
-    "thundercats01",
-    "shera",
-    "dungeons&dragons",
-    "tmnt",
-    
-    "dangermouse",
-    "dogtanian",
-    "trapDoor",
-    "powerRangers"
-    
-  ],
-
+    // 5 source select buttons
   violetsClips: [
     "sunset",
     "duck",
@@ -36,8 +13,47 @@ var vidSources = {
 
   cssIds: [
     "squareLights",
-    "difSizedCircles"
+    "difSizedCircles",
+    "crazyCircles"
+  ],
+
+  cartoons: [
+    "thundercats01",
+    "shera",
+    "defenders",
+    "powerpuff",
+    "dangermouse",
+
+    "heman",
+    "battle",
+    "bucky",
+    "pokemon",
+    "carebear",
+    
+    
+    "dungeons",
+    "bananaman",
+    "mysterious",
+    "pony",
+    
+    
+    "superted",
+    "teenage",
+    "thundercats02",
+    "thundercats03",
+    "trapdoor"
+
+  ],
+
+  abstract: [
+    "circular01",
+    "circular02",
+    "circular03",
+    "dots01",
+    "hexagons01",
+    "squares01",
+    "triangles01"
   ]
 }
 
-//fireman sam - jason & wheeled warriors - jamie magic torch - fraggle rock - ulessys - poddingto peas - power puff girls - pokemon - thunderbirds - captain planets - gummi bears - care bears - my little pony
+//fireman sam - jason & wheeled warriors - jamie magic torch - fraggle rock - ulessys - poddingto peas - thunderbirds - captain planets - gummi bears

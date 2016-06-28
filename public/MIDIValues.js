@@ -356,3 +356,192 @@ var akaiControls = {
     }
   }
 };
+
+var iDJcontrols = {
+  left: {
+    bal: {
+      dial: [176, 30, 0],
+      top: [144, 22, 127]
+    },
+    hi: {
+      dial: [176, 20, 0],
+      top: [144, 14, 127]
+    },
+    mid: {
+      dial: [176, 21, 0],
+      top: [144, 15, 127]
+    },
+    low: {
+      dial: [176, 23, 0],
+      top: [144, 17, 127]
+    },
+    gain: {
+      dial: [176, 28, 0],
+      top: [144, 24, 127]
+    },
+    top: {
+      dial: [176, 84, 0],
+      top: [144, 1, 127] 
+    },
+    bottom: {
+      dial: [176, 85, 0],
+      top: [144, 2, 127]
+    },
+    tempo: {
+      slide: [176, 14, 0],
+      mid: [144, 12, 127]
+    },
+    sync: {
+      onPress: [144, 101, 127],
+      onRelease: [144, 101, 0]
+    },
+    lloop: {
+      onPress: [144, 102, 127],
+      onRelease: [144, 102, 0]
+    },
+    rloop: {
+      onPress: [144, 66, 127],
+      onRelease: [144, 66, 0]
+    },
+    butOut: {
+      onPress: [144, 50, 127],
+      onRelease: [144, 50, 0]
+    },
+    butIn: {
+      onPress: [144, 52, 127],
+      onRelease: [144, 52, 0]
+    },
+    cue: {
+      onPress: [144, 51, 127],
+      onRelease: [144, 51, 0]
+    },
+    play: {
+      onPress: [144, 70, 127],
+      onRelease: [144, 70, 0]
+    },
+    pgm: [176, 12, 0],
+    midButs: {
+      topLeft: {
+        onPress: [144, 85, 127],
+        onRelease: [144, 85, 0]
+      },
+      topRight: {
+        onPress: [144, 88, 127],
+        onRelease: [144, 88, 0]
+      },
+      botRight: {
+        onPress: [144, 79, 127],
+        onRelease: [144, 79, 0]
+      },
+      botLeft: {
+        onPress: [144, 78, 127],
+        onRelease: [144, 78, 0]
+      }
+    },
+    dial: {
+      value: [144, 107, 0],
+      tapOne: [144, 48, 0],
+      tapTwo: [144, 46, 0],
+      forward: [144, 58, 0],
+      back: [144, 59, 0],
+      onPress: {
+        forward: [176, 16, 65],
+        backward: [176, 16, 63]
+      }
+    }
+  },
+  right: {
+    bal: {
+      dial: [176, 31, 0],
+      top: [144, 23, 127]
+    },
+    hi: {
+      dial: [176, 27, 0],
+      top: [144, 21, 127]
+    },
+    mid: {
+      dial: [176, 25, 0],
+      top: [144, 19, 127]
+    },
+    low: {
+      dial: [176, 24, 0],
+      top: [144, 18, 127]
+    },
+    gain: {
+      dial: [176, 29, 0],
+      top: [144, 25, 127]
+    },
+    top: {
+      dial: [176, 86, 0],
+      top: [144, 3, 127] 
+    },
+    bottom: {
+      dial: [176, 87, 0],
+      top: [144, 4, 127]
+    },
+    tempo: {
+      slide: [176, 15, 0],
+      mid: [144, 13, 127]
+    },
+    sync: {
+      onPress: [144, 103, 127],
+      onRelease: [144, 103, 0]
+    },
+    lloop: {
+      onPress: [144, 104, 127],
+      onRelease: [144, 104, 0]
+    },
+    rloop: {
+      onPress: [144, 67, 127],
+      onRelease: [144, 67, 0]
+    },
+    butOut: {
+      onPress: [144, 56, 127],
+      onRelease: [144, 56, 0]
+    },
+    butIn: {
+      onPress: [144, 54, 127],
+      onRelease: [144, 54, 0]
+    },
+    cue: {
+      onPress: [144, 71, 127],
+      onRelease: [144, 71, 0]
+    },
+    play: {
+      onPress: [144, 55, 127],
+      onRelease: [144, 55, 0]
+    },
+    pgm: [176, 13, 0],
+    midButs: {
+      topLeft: {
+        onPress: [144, 91, 127],
+        onRelease: [144, 91, 0]
+      },
+      topRight: {
+        onPress: [144, 76, 127],
+        onRelease: [144, 76, 0]
+      },
+      botRight: {
+        onPress: [144, 83, 127],
+        onRelease: [144, 83, 0]
+      },
+      botLeft: {
+        onPress: [144, 82, 127],
+        onRelease: [144, 82, 0]
+      }
+    },
+    dial: {
+      value: [144, 108, 0],
+      tapOne: [144, 49, 0],
+      tapTwo: [144, 47, 0],
+      forward: [144, 58, 0],
+      back: [144, 59, 0],
+      onPress: {
+        forward: [176, 17, 65],
+        backward: [176, 17, 63]
+      }
+    }
+  },
+  cross: [176, 8, 0]
+};
+
