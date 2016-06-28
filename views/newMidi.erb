@@ -28,7 +28,7 @@
 		<section id="controls">
 			<button id="play-audio">Play Audio</button>
 			<button id="use-mic">Use Mic</button>
-			<audio id="simon" src="media/Guilt.mp3" loop></audio>
+			<audio id="simon" src="media/daveClarkeIloveTecho2014.mp3" loop></audio>
 		</section>
 
 		<section id="screen">
@@ -36,7 +36,7 @@
       <div id="screen-left">
         <section class="video">
           <video id="video-one" autoplay loop>
-            <source src="media/80sIntros/he-manSUB01.mp4" type="video/mp4">
+            <source src="media/cartoons/thundercats01.mp4" type="video/mp4">
           </video>
         </section>
         <section class="css">
@@ -72,7 +72,7 @@
       <div id="screen-right">
         <section class="video">
           <video id="video-two" autoplay loop>
-            <source src="media/80sIntros/thundercats01.mp4" type="video/mp4">
+            <source src="media/cartoons/heman.mp4" type="video/mp4">
           </video>
         </section>
         <section class="css">
@@ -319,46 +319,46 @@ function onMIDIMessage(message) {
       switch (data[0],data[1]) {
         case iDJcontrols.left.sync.onPress[0],iDJcontrols.left.sync.onPress[1]:
           vidFile = vidSources.cartoons[0];
-          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElOne, 'media/cartoons/'+vidFile+'.mp4');
           console.log('worked');
         break;
         case iDJcontrols.left.lloop.onPress[0],iDJcontrols.left.lloop.onPress[1]:
           vidFile = vidSources.cartoons[1];
-          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElOne, 'media/cartoons/'+vidFile+'.mp4');
           console.log(vidFile);
         break;
         case iDJcontrols.left.rloop.onPress[0],iDJcontrols.left.rloop.onPress[1]:
           vidFile = vidSources.cartoons[2];
-          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElOne, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.left.butOut.onPress[0],iDJcontrols.left.butOut.onPress[1]:
           vidFile = vidSources.cartoons[3];
-          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElOne, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.left.butIn.onPress[0],iDJcontrols.left.butIn.onPress[1]:
           vidFile = vidSources.cartoons[4];
-          changeVidSrc(videoElOne, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElOne, 'media/cartoons/'+vidFile+'.mp4');
         break;
 
         case iDJcontrols.right.sync.onPress[0], iDJcontrols.right.sync.onPress[1]:
           vidFile = vidSources.cartoons[5];
-          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElTwo, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.right.lloop.onPress[0], iDJcontrols.right.lloop.onPress[1]:
           vidFile = vidSources.cartoons[6];
-          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElTwo, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.right.rloop.onPress[0], iDJcontrols.right.rloop.onPress[1]:
           vidFile = vidSources.cartoons[7];
-          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElTwo, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.right.butOut.onPress[0], iDJcontrols.right.butOut.onPress[1]:
           vidFile = vidSources.cartoons[8];
-          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElTwo, 'media/cartoons/'+vidFile+'.mp4');
         break;
         case iDJcontrols.right.butIn.onPress[0], iDJcontrols.right.butIn.onPress[1]:
           vidFile = vidSources.cartoons[9];
-          changeVidSrc(videoElTwo, 'media/80sIntros/'+vidFile+'.mp4');
+          changeVidSrc(videoElTwo, 'media/cartoons/'+vidFile+'.mp4');
         break;
       }
     }

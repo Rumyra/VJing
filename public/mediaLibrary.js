@@ -1,28 +1,5 @@
 var vidSources = {
-  eightiesIntros: [
-    "he-manSUB01",
-    "powerpuffGirls",
-    "mrBenn",
-    "dangermouse",
-    
-    "dungeons&dragons",
-    "defenders",
-    "superted",
-    "he-manSUB01",
-
-
-    "thundercats01",
-    "shera",
-    "pokemon",
-    "bananaman",
-    
-    "battlePlanets",
-    "mcog",
-    "trapDoor",
-    "thundercats01"
-    
-  ],
-
+    // 5 source select buttons
   violetsClips: [
     "sunset",
     "duck",
@@ -41,28 +18,42 @@ var vidSources = {
   ],
 
   cartoons: [
-    "he-manSUB01",
-    "powerpuffGirls",
-    "battlePlanets",
-    "dangermouse",
-    "dungeons&dragons",
-
     "thundercats01",
     "shera",
+    "defenders",
+    "powerpuff",
+    "dangermouse",
+
+    "heman",
+    "battle",
+    "bucky",
     "pokemon",
-    "mcog",
-    "defenders"
+    "carebear",
+    
+    
+    "dungeons",
+    "bananaman",
+    "mysterious",
+    "pony",
+    
+    
+    "superted",
+    "teenage",
+    "thundercats02",
+    "thundercats03",
+    "trapdoor"
+
   ],
 
   abstract: [
-    "lights",
-    "lights2",
-    "triangle",
-    "drawn",
-    "blackLine",
-    "3dlines",
-    "dots"
+    "circular01",
+    "circular02",
+    "circular03",
+    "dots01",
+    "hexagons01",
+    "squares01",
+    "triangles01"
   ]
 }
 
-//fireman sam - jason & wheeled warriors - jamie magic torch - fraggle rock - ulessys - poddingto peas - power puff girls - pokemon - thunderbirds - captain planets - gummi bears - care bears - my little pony
+//fireman sam - jason & wheeled warriors - jamie magic torch - fraggle rock - ulessys - poddingto peas - thunderbirds - captain planets - gummi bears
