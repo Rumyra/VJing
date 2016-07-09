@@ -133,3 +133,11 @@ var mixVids = function mixVids() {
     }
   }
 }
+
+// GENERAL useful functions
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+

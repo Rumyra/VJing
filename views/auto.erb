@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<title>VJing Demo</title>
+	<link type="text/css" href="style.css" rel="stylesheet" media="screen">
+  <script src="MIDIValues.js"></script>
+  <script src="mediaLibrary.js"></script>
+	<script src="visualFuncs.js"></script>
+  <style type="text/css">
+    html {cursor: none;}
+    #screen > div,
+    #screen > div > section {
+      position: absolute; top:0px; left:0px;
+      width: 100%; height: 94vh;
+    }
+    .video {display:block !important;}
+    .video video {width:100%; height:auto;}
+    .css {background-color: black; display: none !important;}
+    #screen-left {opacity: 1;}
+    #screen-right {opacity: 0;}
+  </style>
+</head>
+
+<body>
+	<div class="container">
+		<section id="controls">
+			<button id="play-audio">Play Audio</button>
+			<button id="use-mic">Use Mic</button>
+			<audio id="simon" src="media/daveClarkeIloveTecho2014.mp3" loop></audio>
+		</section>
+
+		<section id="screen">
+
+      <div id="screen-left">
+        <section class="video">
+          <video id="video-one" autoplay loop>
+            <source src="media/cartoons/thundercats01.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section class="css">
+          <section class="abstract square-lights" id="squareLights">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </section>
+
+          <section class="abstract sized-squares" id="difSizedCircles">
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+          </section>
+
+          <section class="abstract crazy-circles" id="crazyCircles">
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+          </section>
+        </section>
+      </div>
+
+
+      <div id="screen-right">
+        <section class="video">
+          <video id="video-two" autoplay loop>
+            <source src="media/cartoons/heman.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section class="css">
+          <section class="abstract square-lights" id="squareLights">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </section>
+
+          <section class="abstract sized-squares" id="difSizedCircles">
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+            <b></b><b></b><b></b>
+          </section>
+
+          <section class="abstract crazy-circles" id="crazyCircles">
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+            <em></em><em></em><em></em>
+          </section>
+        </section>
+      </div>
+		</section>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+// ~~~~ SETUP vars
+var AudioContext = (window.AudioContext || window.webkitAudioContext);
+
+var simonSoundEl = document.getElementById('simon'),
+  playButton = document.getElementById('play-audio'),
+	micButton = document.getElementById('use-mic'),
+	lightEls = document.getElementsByTagName('i'),
+  circleEls = document.getElementsByTagName('b'),
+  zCircleEls = document.getElementsByTagName('em'),
+	videoElOne = document.getElementById('video-one'),
+	videoElTwo = document.getElementById('video-two'),
+	// videoCont = document.getElementById('video'),
+	// cssCont = document.getElementById('css'),
+	// blackEl = document.getElementById('black'),
+	// whiteEl = document.getElementById('white'),
+  leftScreen = document.getElementById('screen-left'),
+  leftVidEl = leftScreen.getElementsByClassName('video')[0],
+  leftCssEl = leftScreen.getElementsByClassName('css')[0],
+  rightScreen = document.getElementById('screen-right'),
+  rightVidEl = rightScreen.getElementsByClassName('video')[0],
+  rightCssEl = rightScreen.getElementsByClassName('css')[0],
+  set = 'css',
+  threshold = 0,
+  elColour = 0,
+
+  // currentCssEl = document.getElementById('squareLights'),
+  // nextCssEl,
+  squaredLights = document.getElementById('squareLights'),
+  sizedCircles = document.getElementById('difSizedCircles'),
+  crazyCircles = document.getElementById('crazyCircles'),
+  leftSquaredLights = leftScreen.getElementsByClassName('square-lights')[0],
+  leftSizedSquares = leftScreen.getElementsByClassName('sized-squares')[0],
+  leftCrazyCircles = leftScreen.getElementsByClassName('crazy-circles')[0],
+  rightSquaredLights = rightScreen.getElementsByClassName('square-lights')[0],
+  rightSizedSquares = rightScreen.getElementsByClassName('sized-squares')[0],
+  rightCrazyCircles = rightScreen.getElementsByClassName('crazy-circles')[0],
+
+	audioAPI = new AudioContext,
+	guiltMp3 = audioAPI.createMediaElementSource(simonSoundEl),
+  analyserNode = audioAPI.createAnalyser(),
+  frequencyData = new Uint8Array(1024);
+	
+// ~~~~ ANALYSER
+analyserNode.fftSize = 2048;
+
+// set up getUserMedia
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+var playGuilt = function playGuilt() {
+	guiltMp3.connect(analyserNode);
+	guiltMp3.connect(audioAPI.destination);
+	analyserNode.connect(audioAPI.destination);
+	simonSoundEl.play();
+ //  flashLights();
+ //  sizeCircles();
+	// crazedCircles();
+	mixScreensAuto();
+}
+
+var pickUpSound = function pickUpSound(stream) {
+  var ambientNoise = audioAPI.createMediaStreamSource(stream);
+  ambientNoise.connect(analyserNode);
+  flashLights();
+  mixVids();
+}
+
+//play track
+playButton.onclick = function() {
+	if (simonSoundEl.paused) {
+		playGuilt();
+	} else {
+		simonSoundEl.pause();
+	}
+}
+//or pick up sound
+micButton.onclick = function() {
+  navigator.getUserMedia(
+  {audio:true},
+    pickUpSound,
+    function(err) {
+      console.log("The following error occured: " + err);
+    } 
+  );
+}
+
+
+var screenLeft = true;
+var threshold = 0;
+function mixCartoonVids() {
+  // if screen one is showing
+  if (screenLeft) {
+    var randomVid = vidSources.cartoons[getRandomInt(0, 18)];
+    changeVidSrc(videoElOne, 'media/cartoons/'+randomVid+'.mp4');
+    // rightScreen.style.opacity = '1';
+    window.setTimeout(mixing, 30000);
+    screenLeft = false;
+  } else {
+    var randomVid = vidSources.cartoons[getRandomInt(0, 18)];
+    changeVidSrc(videoElTwo, 'media/cartoons/'+randomVid+'.mp4');
+    // leftScreen.style.opacity = '1';
+    window.setTimeout(mixing, 15000);
+    screenLeft = true;
+  }
+}
+
+var intID = window.setInterval(mixCartoonVids, 60000);
+var thresholdVars = [0,120,150,180,300] //11
+var thresholdIndex = 0;
+
+function setThreshold() {
+  var upper = thresholdVars.length;
+  if (screenLeft) {
+    thresholdIndex < upper-1 ? thresholdIndex++ : thresholdIndex = upper-1;
+  } else {
+    thresholdIndex > 0 ? thresholdIndex-- : thresholdIndex = 0;
+  }
+  threshold = thresholdVars[thresholdIndex];
+}
+
+function mixScreensAuto() {
+  // requestAnimationFrame(mixScreens);
+  
+  console.log('Threshold for mix: ' + threshold);
+  //constantly getting feedback from data
+  analyserNode.getByteFrequencyData(frequencyData);
+
+  for (var i=0; i<49; i++) {
+    var freqDataKey = i*8;
+    if (frequencyData[freqDataKey] > threshold){
+      if (i<10) {
+        rightScreen.style.opacity = '1';
+      } else {
+        rightScreen.style.opacity = '0';
+      }
+    }
+  }
+
+  setThreshold();
+}
+
+function mixing() {
+  window.setInterval(mixScreensAuto, 6000);
+}
+
+</script>
+
+</html>

@@ -27,3 +27,7 @@ end
 get '/newMidi' do
   erb :newMidi
 end
+
+get '/auto' do
+  erb :auto
+end
