@@ -27,3 +27,7 @@ end
 get '/newMidi' do
   erb :newMidi
 end
+
+get '/minim' do
+  erb :minim
+end
