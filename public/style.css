@@ -17,6 +17,12 @@ figure {
   outline: 0;
   vertical-align: baseline; }
 
+:root {
+  --trebleVol: 1;
+  --midVol: 1;
+  --bassVol: 1;
+}
+
 body {
   font-size:100%;
   font-family: 'helvetica neue' helvetica arial sans-serif;
@@ -61,56 +67,66 @@ body {
 }
 
 /*~~~ CSS created 'tracks'*/
-#css {
-}
-#css section {
-}
-#squareLights, #difSizedCircles {
-  /*display: none;*/
+.css {}
+.css section {display: none;}
+/*~~~~~~~~~~~~~~*/
+#squareLights {
   margin: 1%;
-  /*display: -webkit-flex;*/
-  display: none;
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  flex-wrap: wrap;
 }
-#squareLights i, #difSizedCircles b {
-  display:inline-block; margin:2%;
-  width:50px; height:50px;
-  background-color:hsla(0, 80%, 50%, 1);
-  border:10px solid hsla(0, 80%, 50%, 1);
+#squareLights i {
+  display: block;
+  width: 10vw; height: 10vh;
   border-radius:2px;
   opacity:0.2;
 }
-#difSizedCircles, #crazyCircles {
-  display: none;
-  position: relative;
+/*~~~~~~~~~~~~~~*/
+#simpleSpectrum {
+  width: 100%; height: 95vh;
+  line-height:95vh;
+  text-align: center;
 }
-#difSizedCircles b {opacity: 1;}
-#crazyCircles em {
+#simpleSpectrum i {
+  display:inline-block; margin: 0px 3px;
+  background: white;
+  width:10px; height: 6px;
+}
+/*~~~~~~~~~~~~~~*/
+#barToFish i {
   position: absolute;
-  width:50px; height:50px;
-  background-color:hsla(0, 80%, 50%, 1);
-  border:10px solid hsla(0, 80%, 50%, 1);
-  border-radius:100px;
+  display: block; width: 10vw; height: 10vh;
+  background-color: red;
+  border-radius: calc(10vw * var(--trebleVol));
 }
-/*#difSizedCircles b:nth-of-type(1) {top:5vh; left:10vw;}
-#difSizedCircles b:nth-of-type(2) {top:40vh; left:40vw;}
-#difSizedCircles b:nth-of-type(3) {top:20vh; left:60vw;}
-#difSizedCircles b:nth-of-type(4) {top:10vh; left:80vw;}
-#difSizedCircles b:nth-of-type(5) {top:80vh; left:90vw;}
-#difSizedCircles b:nth-of-type(6) {top:10vh; left:35vw;}
-#difSizedCircles b:nth-of-type(7) {top:60vh; left:55vw;}
-#difSizedCircles b:nth-of-type(8) {top:5vh; left:75vw;}
-#difSizedCircles b:nth-of-type(9) {top:30vh; left:15vw;}
-#difSizedCircles b:nth-of-type(10) {top:70vh; left:85vw;}
-#difSizedCircles b:nth-of-type(11) {top:10vh; left:5vw;}
-#difSizedCircles b:nth-of-type(12) {top:35vh; left:95vw;}
-#difSizedCircles b:nth-of-type(13) {top:65vh; left:50vw;}
-#difSizedCircles b:nth-of-type(14) {top:75vh; left:25vw;}
-#difSizedCircles b:nth-of-type(15) {top:25vh; left:90vw;}
-#difSizedCircles b:nth-of-type(16) {top:85vh; left:75vw;}
-#difSizedCircles b:nth-of-type(17) {top:45vh; left:75vw;}
-#difSizedCircles b:nth-of-type(18) {top:50vh; left:20vw;}*/
+/*~~~~~~~~~~~~~~*/
+#resizeSqLights {
+  flex-wrap: wrap;
+}
+#resizeSqLights {
+  display: block;
+  width: 20vw; height: 19vh;
+  background-image: linear-gradient(90deg, hsla(0,80%,50%,0.2), hsla(0,80%,50%,0.2));
+    background-size: 25% 25%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+/*~~~~~~~~~~~~~~*/
+#expandLines i {
+  position: absolute;
+  display: block; width: calc(20vw * var(--midVol)); height: 2vw;
+  background-color: red;
+}
+/*~~~~~~~~~~~~~~*/
+#fish i {
+  position: absolute;
+  display: block; width: 10vw; height: 10vh;
+  border: calc(10vw * var(--trebleVol)) solid transparent;
+  border-right: none;
+}
+/*~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~*/
 
 /*~~~ Video clip 'tracks'*/
 #video {

@@ -1,0 +1,50 @@
+/*
+  Styles for Layer Stack library
+*/
+
+.bg-stack-container {
+  position: absolute;
+  perspective: 1000px;
+  will-change: transform;
+  pointer-events: none; /* allow clicks to go through */
+}
+
+.bg-stack-container.animated .bg-stack {
+  /* TODO: log bug with Firefox because it won't support calc() in rotate transforms */
+  transform: rotateX(55deg) rotateY(0) rotateZ(calc(var(--xoffset, 0) * 1deg)) scale(.65);
+}
+
+/* TODO: log bug with Chrome because it falsely says it doesn't support calc in rotate transform */
+/*@supports (transform: rotateZ(calc(var(--xoffset, 0) * 1deg))) {
+  body {
+    background-color: lime;
+  }
+}*/
+
+.bg-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  transition: transform 1s ease-out;
+}
+
+.bg-stack__layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 1s ease-out, box-shadow 2s, opacity 2s;
+}
+
+.bg-stack-container.animated .bg-stack__layer {
+  opacity: 0.85;
+  box-shadow: 0 0 20px black;
+}
+
+/* Offset transforms for each layer are generated in JS. */
+
+/* Utility classes use !important to enforce themselves. */
+.u-invisible {
+  visibility: hidden !important;
+}

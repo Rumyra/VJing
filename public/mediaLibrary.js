@@ -13,8 +13,12 @@ var vidSources = {
 
   cssIds: [
     "squareLights",
-    "difSizedCircles",
-    "crazyCircles"
+    "simpleSpectrum",
+    "barToFish",
+
+    "resizeSqLights",
+    "expandLines",
+    "fish"
   ],
 
   cartoons: [
@@ -44,49 +48,64 @@ var vidSources = {
     "shera",
     "defenders",
     "powerpuff",
-    "dangermouse",
+
     "heman",
     "battle",
-    "bucky"
+    "teenage",
+    "pokemon"
   ],
 
   cartoons2: [
-    "pokemon",
+    "bucky",
+    "dangermouse",
     "dungeons",
     "bananaman",
     "mysterious",
     "pony",
     "superted",
-    "teenage",
+    
     "trapdoor"
   ],
 
   abstract: [
-    "circular01",
-    "hexagons01",
-    "dots01",
     "rockets01",
-    "circular02",
-    "dots04",
-    "circular03",
     "space01",
-    "circular06",
-    "dots02",
+    "squares01",
     "dots07",
+
     "lines01",
+    "dots02",
     "dots06",
-    "snakes01",
-    "dots03",
-    "squares01"
+    "hexagons01"
   ],
 
+// "circular01",
+// "hexagons01", -
+// "dots01",
+// "rockets01", -
+// "circular02",
+// "dots04",
+// "circular03",
+// "space01", -
+// "circular06",
+// "dots02", -
+// "dots07", -
+// "lines01", -
+// "dots06", -
+// "snakes01",
+// "dots03",
+// "squares01" -
+
   games: [
-    "chuckie",
-    "donkey",
-    "pacman",
     "pong",
-    "space",
-    "tetris"
+    "chuckie",
+    "pacman",
+    "spaceinv",
+    
+    "breakout",
+    "donkey",
+    "tetris",
+    "xenon"
   ]
 }
 

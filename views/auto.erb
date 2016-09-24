@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <title>VJing Demo</title>
+  <link type="text/css" href="style.css" rel="stylesheet" media="screen">
+  <script src="bezier.js"></script>
+  <script src="MIDIValues.js"></script>
+  <script src="mediaLibrary.js"></script>
+  <script src="visualFuncs.js"></script>
+  <style type="text/css">
+  html {cursor: none;}
+  #screen > div,
+  #screen > div > section {
+    position: absolute; top:0px; left:0px;
+    width: 100%; height: 94vh;
+  }
+  .video video {width:100%; height:auto;}
+  .css {display:none;}
+  #screen-left {opacity: 1;}
+  #screen-right {opacity: 0;}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <section id="controls">
+      <button id="play-audio">Play Audio</button>
+      <button id="use-mic">Use Mic</button>
+      <audio id="simon" src="media/daveClarkeIloveTecho2014.mp3" loop></audio>
+    </section>
+
+    <section id="screen">
+
+      <div id="screen-left">
+        <section class="video">
+          <video id="video-one" autoplay loop>
+            <source src="media/cartoons/thundercats01.mp4" type="video/mp4">
+          </video>
+        </section>
+      </div>
+
+
+      <div id="screen-right">
+        <section class="video">
+          <video id="video-two" autoplay loop>
+            <source src="media/cartoons/heman.mp4" type="video/mp4">
+          </video>
+        </section>
+      </div>
+
+      <div id="black"></div>
+      <div id="white"></div>
+    </section>
+  </div>
+</body>
+
+<script type="text/javascript">
+
+// ~~~~ SETUP vars
+var AudioContext = (window.AudioContext || window.webkitAudioContext);
+
+var simonSoundEl = document.getElementById('simon'),
+  playButton = document.getElementById('play-audio'),
+  micButton = document.getElementById('use-mic'),
+  lightEls = document.getElementsByTagName('i'),
+  circleEls = document.getElementsByTagName('b'),
+  zCircleEls = document.getElementsByTagName('em'),
+  videoElOne = document.getElementById('video-one'),
+  videoElTwo = document.getElementById('video-two'),
+  // videoCont = document.getElementById('video'),
+  // cssCont = document.getElementById('css'),
+  blackEl = document.getElementById('black'),
+  whiteEl = document.getElementById('white'),
+  leftScreen = document.getElementById('screen-left'),
+  leftVidEl = leftScreen.getElementsByClassName('video')[0],
+  leftCssEl = leftScreen.getElementsByClassName('css')[0],
+  rightScreen = document.getElementById('screen-right'),
+  rightVidEl = rightScreen.getElementsByClassName('video')[0],
+  rightCssEl = rightScreen.getElementsByClassName('css')[0],
+  set = 'css',
+  threshold = 100,
+  elColour = 0,
+
+  // currentCssEl = document.getElementById('squareLights'),
+  // nextCssEl,
+  squaredLights = document.getElementById('squareLights'),
+  sizedCircles = document.getElementById('difSizedCircles'),
+  crazyCircles = document.getElementById('crazyCircles'),
+  leftSquaredLights = leftScreen.getElementsByClassName('square-lights')[0],
+  leftSizedSquares = leftScreen.getElementsByClassName('sized-squares')[0],
+  leftCrazyCircles = leftScreen.getElementsByClassName('crazy-circles')[0],
+  rightSquaredLights = rightScreen.getElementsByClassName('square-lights')[0],
+  rightSizedSquares = rightScreen.getElementsByClassName('sized-squares')[0],
+  rightCrazyCircles = rightScreen.getElementsByClassName('crazy-circles')[0],
+
+  audioAPI = new AudioContext,
+  guiltMp3 = audioAPI.createMediaElementSource(simonSoundEl),
+  analyserNode = audioAPI.createAnalyser(),
+  frequencyData = new Uint8Array(1024),
+  easing = BezierEasing(0.2, 0.8, 0.8, 0.2);
+  
+// ~~~~ ANALYSER
+analyserNode.fftSize = 2048;
+
+// set up getUserMedia
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+var playGuilt = function playGuilt() {
+  guiltMp3.connect(analyserNode);
+  guiltMp3.connect(audioAPI.destination);
+  analyserNode.connect(audioAPI.destination);
+  simonSoundEl.play();
+  // flashLights();
+  // sizeCircles();
+  // crazedCircles();
+  mixScreens();
+}
+
+var pickUpSound = function pickUpSound(stream) {
+  var ambientNoise = audioAPI.createMediaStreamSource(stream);
+  ambientNoise.connect(analyserNode);
+  mixScreens();
+}
+
+//play track
+playButton.onclick = function() {
+  if (simonSoundEl.paused) {
+    playGuilt();
+  } else {
+    simonSoundEl.pause();
+  }
+}
+
+navigator.getUserMedia(
+{audio:true},
+  pickUpSound,
+  function(err) {
+    console.log("The following error occured: " + err);
+  } 
+);
+
+//keep track playing switch to video with MIDI
+// ----------------MIDI SHIZZLE
+var counter=0;
+
+var allTheVids = {
+videos: [
+    "cartoons/thundercats01",
+    "cartoons/shera",
+    "cartoons/defenders",
+    "cartoons/powerpuff",
+    "cartoons/heman",
+    "cartoons/battle",
+    "cartoons/pokemon",
+    "cartoons/dungeons",
+    "cartoons/teenage",
+    "abstract/hexagons01",
+    "abstract/rockets01",
+    "abstract/circular02",
+    "abstract/space01",
+    "abstract/dots02",
+    "abstract/dots07",
+    "abstract/lines01",
+    "abstract/dots06",
+    "abstract/squares01",
+    "games/chuckie",
+    "games/donkey",
+    "games/pacman",
+    "games/pong",
+    "games/spaceinv",
+    "games/tetris",
+    "games/xenon",
+    "games/breakout"
+  ]
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function swapVid() {
+  // console.log('called');
+  var newInt = getRandomInt(0,37);
+  var vidEl = videoElOne;
+  var vidSrc = allTheVids.videos[newInt];
+  console.log(vidSrc, vidEl);
+  if (counter%2 === 0) {
+    vidEl = videoElTwo;
+  }
+  changeVidSrc(vidEl, 'media/'+allTheVids.videos[newInt]+'.mp4');
+  counter++;
+}
+
+setInterval(swapVid, 30000);
+
+
+</script>
+
+</html>

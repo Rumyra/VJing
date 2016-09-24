@@ -31,3 +31,7 @@ end
 get '/minim' do
   erb :minim
 end
+
+get '/auto' do
+  erb :auto
+end

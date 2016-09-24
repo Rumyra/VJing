@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <!--meta content-->
+  
+  <meta name="author" content="Ruth John (@rumyra)">
+  <meta name="dcterms.rightsHolder" content="Built by Ruth John, United Kingdom, 2015">
+  <title>MIDI Demos | Rumyra</title>
+  <meta name="description" content="">
+
+  <!--include if you want modenizr (rest of scripts just before </body>)
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  -->
+  <style type="text/css">
+    :root {
+      --trebleVol: 1;
+      --midVol: 1;
+      --bassVol: 1;
+    }
+
+    body {margin:0px; padding:0px;}
+
+    #screen {
+      position: relative;
+      width: 100vw; height: 100vh;
+      background: black;
+    }
+    #screen i {
+      position: absolute;
+      display: block; width: calc(20vw * var(--midVol)); height: 2vw;
+      background-color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div id="screen">
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+
+</body>
+<script type="text/javascript">
+  // set up audio context
+var audioContext = (window.AudioContext || window.webkitAudioContext);
+// create audio class
+if (audioContext) {
+  // Web Audio API is available.
+  var audioApi = new audioContext();
+} else {
+  // Web Audio API is not available. Ask the user to use a supported browser.
+  alert("Oh nos! It appears your browser does not support the Web Audio API, please upgrade or use a different browser");
+}
+// set up getUserMedia
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+// variables
+var audioBuffer,
+    analyserNode,
+    frequencyData = new Uint8Array(1024),
+    screen = document.getElementById('screen'),
+    allRepeatedEls = document.getElementsByTagName('i'),
+    totalEls = allRepeatedEls.length;
+
+// create an audio API analyser node and connect to source
+function createAnalyserNode(audioSource) {
+  analyserNode = audioApi.createAnalyser();
+  analyserNode.fftSize = 2048;
+  audioSource.connect(analyserNode);
+}
+
+// get's html elements, loops over them & attaches a frequency from analysed data - what you do is up to you!
+function animateStuff() {
+  requestAnimationFrame(animateStuff);
+  analyserNode.getByteFrequencyData(frequencyData);
+  
+  // set bass, mid and treb vars
+  var propBass = frequencyData[5]/255;
+  var propMid = frequencyData[20]/255;
+  var propTreb = frequencyData[35]/255;
+  document.documentElement.style.setProperty('--bassVol', propBass);
+  document.documentElement.style.setProperty('--midVol', propMid);
+  document.documentElement.style.setProperty('--trebleVol', propTreb);
+
+  for (var i=0; i<totalEls; i++) {
+    // set data
+    var lightColour = i*15;
+    
+    // allRepeatedEls[i].style.backgroundColor = 'hsla('+lightColour+',  80%, 50%, 0.8)';
+    allRepeatedEls[i].style.backgroundColor = 'hsla('+lightColour+',  80%, 50%, 0.8)';
+    allRepeatedEls[i].style.top = Math.sin(i*propTreb*10)+(i*10)+'px';
+    allRepeatedEls[i].style.left = (Math.tan(i)*150)+300+'px';
+    // flash on frequency
+    var freqDataKey = i*2;
+    if (frequencyData[freqDataKey] > 100){
+      // frequency played - make opache
+      allRepeatedEls[i].style.opacity = "0.8";
+      allRepeatedEls[i].style.transform = "scale(1.2)";
+    } else {
+      // frequency not played - fade out
+      allRepeatedEls[i].style.opacity = "0.4";
+      allRepeatedEls[i].style.transform = "scale(0.8)";
+
+    }
+  }
+}
+
+// getUserMedia success callback -> pipe audio stream into audio API
+function gotStream(stream) {
+    // Create an audio input from the stream.
+    var audioSource = audioApi.createMediaStreamSource(stream);
+    createAnalyserNode(audioSource);
+    animateStuff();
+}
+
+// pipe in analysing to getUserMedia
+navigator.getUserMedia(
+  {audio:true},
+  gotStream,
+  function(err) {
+    console.log("The following error occured: " + err);
+  } 
+);
+
+</script>
+
+</html>
