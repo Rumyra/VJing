@@ -12,13 +12,24 @@ var vidSources = {
   ],
 
   cssIds: [
-    "squareLights",
-    "simpleSpectrum",
-    "barToFish",
+    // "simpleSpectrum",
+    // "squareLights",
+    // "barToFish",
 
-    "resizeSqLights",
-    "expandLines",
-    "fish"
+    // "resizeSqLights",
+    // "expandLines",
+    // "fish"
+    "simpleSpectrum",
+    "superChart",
+    "superSquares",
+    "superSunburst",
+
+    "superSpiral",
+    "superCentric",
+    "diagCirc",
+    "superSpotsOne"
+
+
   ],
 
   cartoons: [
@@ -75,8 +86,19 @@ var vidSources = {
 
     "lines01",
     "dots02",
-    "dots06",
+    "jsau",
     "hexagons01"
+  ],
+
+  matt: [
+    "startrek",
+    "jsau",
+    "sleeping",
+    "topgun",
+
+    "milion",
+    "matrix",
+    "pooh"
   ],
 
 // "circular01",

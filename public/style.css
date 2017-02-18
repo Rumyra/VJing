@@ -83,13 +83,13 @@ body {
 /*~~~~~~~~~~~~~~*/
 #simpleSpectrum {
   width: 100%; height: 95vh;
-  line-height:95vh;
+  line-height:145vh;
   text-align: center;
 }
 #simpleSpectrum i {
   display:inline-block; margin: 0px 3px;
   background: white;
-  width:10px; height: 6px;
+  width:30px; height: 6px;
 }
 /*~~~~~~~~~~~~~~*/
 #barToFish i {
@@ -102,7 +102,7 @@ body {
 #resizeSqLights {
   flex-wrap: wrap;
 }
-#resizeSqLights {
+#resizeSqLights i {
   display: block;
   width: 20vw; height: 19vh;
   background-image: linear-gradient(90deg, hsla(0,80%,50%,0.2), hsla(0,80%,50%,0.2));
