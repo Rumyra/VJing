@@ -3,6 +3,103 @@
 // akaiControls.progChng.pad1[0]
 
 var minim = {
+  side: [
+    {
+      onPress: [144,32,64],
+      onRelease: [144,32,0]
+    },
+    {
+      onPress: [144,33,64],
+      onRelease: [144,33,0]
+    },
+    {
+      onPress: [144,34,64],
+      onRelease: [144,34,0]
+    },
+    {
+      onPress: [144,35,64],
+      onRelease: [144,35,0]
+    },
+    {
+      onPress: [144,44,64],
+      onRelease: [144,44,0]
+    },
+    {
+      onPress: [144,45,64],
+      onRelease: [144,45,0]
+    },
+    {
+      onPress: [144,46,64],
+      onRelease: [144,46,0]
+    },
+    {
+      onPress: [144,47,64],
+      onRelease: [144,47,0]
+    }
+  ],
+
+  pads: [
+    {
+      onPress: [144,36],
+      onRelease: [144,36,0]
+    },
+    {
+      onPress: [144,37],
+      onRelease: [144,37,0]
+    },
+    {
+      onPress: [144,38],
+      onRelease: [144,38,0]
+    },
+    {
+      onPress: [144,39],
+      onRelease: [144,39,0]
+    },
+    {
+      onPress: [144,40],
+      onRelease: [144,40,0]
+    },
+    {
+      onPress: [144,41],
+      onRelease: [144,41,0]
+    },
+    {
+      onPress: [144,42],
+      onRelease: [144,42,0]
+    },
+    {
+      onPress: [144,43],
+      onRelease: [144,43,0]
+    },
+  ],
+
+  top: [
+    {
+      onPress: [144,6,64],
+      onRelease: [144,6,0]
+    },
+    {
+      onPress: [144,5,64],
+      onRelease: [144,6,0]
+    },
+    {
+      onPress: [144,4,64],
+      onRelease: [144,6,0]
+    },
+    {
+      onPress: [144,3,64],
+      onRelease: [144,6,0]
+    },
+    {
+      onPress: [144,2,64],
+      onRelease: [144,6,0]
+    },
+  ],
+  
+  cross: [176,1]
+}
+
+var minimOld = {
   right: {
     button1: {
       onPress: [144,44,64],

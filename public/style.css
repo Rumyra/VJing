@@ -23,10 +23,45 @@ figure {
   --bassVol: 1;
 }
 
+html {cursor: none;}
+
 body {
   font-size:100%;
   font-family: 'helvetica neue' helvetica arial sans-serif;
 }
+
+#screen {
+  height: 100vh; width:100%;
+  box-sizing: border-box;
+  overflow: hidden; position: relative;
+  background-color: black;
+}
+#screen > div,
+#screen > div > section {
+  position: absolute; top:0px; left:0px;
+  width: 100%; height: 100vh;
+}
+.screen {opacity: 0;}
+.screen:nth-of-type(1) {opacity: 1;}
+
+
+.video {display:none;}
+.video video {width:100%; height:auto;}
+
+.css {background-color: black;}
+
+/*black & white covers for fading in and out*/
+#black, #white {
+  height: 100vh; width:100%;
+  position: absolute; top:0px; left:0px;
+  opacity: 0;
+}
+#black {background-color: black;}
+#white {background-color: white;}
+
+
+
+
 
 /*for css elements*/
 .cssShow {
@@ -41,34 +76,8 @@ body {
   font-size: 1.2em;
 }
 
-#controls {
-  height: 4vh; width: 100%;
-  -webkit-box-sizing: border-box;
-  border: 1px solid darkgrey;
 
-  /*display: -webkit-flex;*/
-  display: none;
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
-}
-#controls button {
-  width: 6%;
-  -webkit-box-sizing: border-box;
-  color: white;
-  cursor: pointer;
-}
 
-#screen {
-  height: 94vh; width:100%;
-  -webkit-box-sizing: border-box;
-  overflow: hidden; position: relative;
-  background-color: black;
-  border: 1px solid grey;
-}
-
-/*~~~ CSS created 'tracks'*/
-.css {}
-.css section {display: none;}
 /*~~~~~~~~~~~~~~*/
 #squareLights {
   margin: 1%;
@@ -138,14 +147,6 @@ body {
 
 }
 
-/*black & white covers for fading in and out*/
-#black, #white {
-  height: 92vh; width:100%;
-  position: absolute; top:0px; left:0px;
-  opacity: 0;
-}
-#black {background-color: black;}
-#white {background-color: white;}
 
 
 

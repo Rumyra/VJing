@@ -9,12 +9,18 @@ var mixScreens = function mixScreens() {
     var freqDataKey = i*8;
     if (frequencyData[freqDataKey] > threshold){
       if (i<10) {
-        rightScreen.style.opacity = '1';
+        screens[0].style.opacity = '1';
       } else {
-        rightScreen.style.opacity = '0';
+        screens[0].style.opacity = '0';
       }
     }
   }
+}
+
+
+// VIDEOS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var changeVidSrc = function changeVidSrc(videoEl, newSrc) {
+  videoEl.src = newSrc;
 }
 
 
@@ -277,26 +283,5 @@ function fish() {
 }
 
 
-// VIDEOS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var changeVidSrc = function changeVidSrc(videoEl, newSrc) {
-  videoEl.src = newSrc;
-}
 
-var mixVids = function mixVids() {
-  // console.log('Threshold for mix: ' + threshold);
-  requestAnimationFrame(mixVids);
-  //constantly getting feedback from data
-  analyserNode.getByteFrequencyData(frequencyData);
-
-  for (var i=0; i<49; i++) {
-    var freqDataKey = i*8;
-    if (frequencyData[freqDataKey] > threshold){
-      if (i<10) {
-        videoElTwo.style.opacity = '1';
-      } else {
-        videoElTwo.style.opacity = '0';
-      }
-    }
-  }
-}
