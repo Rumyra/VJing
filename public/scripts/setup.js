@@ -7,8 +7,13 @@ const blackEl = document.getElementById('black'),
   vidEls = document.getElementsByTagName('video');
 
 
-var shapeCount = 16;
+var shapeCount = 16,
+  set = sets[0],
+  screenNo = 1,
+  threshold = 0,
+  elColour = 0;
 
+const easing = BezierEasing(0.2, 0.8, 0.8, 0.2);
 const audioApi = new window.AudioContext;
 
 // variables
@@ -16,21 +21,8 @@ var audioBuffer,
     analyserNode,
     frequencyData = new Uint8Array(4096);
 
-// create an audio API analyser node and connect to source
-function createAnalyserNode(audioSource) {
-  analyserNode = audioApi.createAnalyser();
-  analyserNode.fftSize = 8192;
-  audioSource.connect(analyserNode);
-}
-
-// getUserMedia success callback -> pipe audio stream into audio API
-function gotStream(stream) {
-    // Create an audio input from the stream.
-    var audioSource = audioApi.createMediaStreamSource(stream);
-    createAnalyserNode(audioSource);
-    // draw();
-    mixScreens();
-}
+analyserNode = audioApi.createAnalyser();
+analyserNode.fftSize = 8192;
 
 function adjustFreqData() {
   analyserNode.getByteFrequencyData(frequencyData);
@@ -67,6 +59,27 @@ function adjustFreqData() {
   }
   
   return newFreqs;
+}
+
+// create an audio API analyser node and connect to source
+function createAnalyserNode(audioSource) {
+  audioSource.connect(analyserNode);
+}
+
+document.addEventListener('keyup', (event) => {
+  screenNo = event.key;
+}, false);
+
+var cssThang = 'squareLights';
+
+// getUserMedia success callback -> pipe audio stream into audio API
+function gotStream(stream) {
+    // Create an audio input from the stream.
+    console.log('got stream');
+    var audioSource = audioApi.createMediaStreamSource(stream);
+    createAnalyserNode(audioSource);
+    reqAnim(cssThang);
+    mixScreens();
 }
 
 // pipe in analysing to getUserMedia

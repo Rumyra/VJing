@@ -1,19 +1,4 @@
 
-const easing = BezierEasing(0.2, 0.8, 0.8, 0.2);
-
-var set = sets[0],
-  screenNo = 1,
-  threshold = 0,
-  elColour = 0;
-
-document.addEventListener('keyup', (event) => {
-  screenNo = event.key;
-}, false);
-
-var cssThang = 'squareLights';
-reqAnim(cssThang);
-
-
 function onMIDIMessage(message) {
     data = message.data;
     // console.log('MIDI data', data);
