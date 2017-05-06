@@ -39,40 +39,58 @@ var library = {
     cartoons1:
     [
       "thundercats01",
+      "heman",
       "shera",
       "defenders",
-      "powerpuff",
 
-      "heman",
+      "bucky",
       "battle",
       "teenage",
-      "pokemon"
+      "dungeons",
     ],
 
-    cartoons2: [
-      "bucky",
+    cartoons2: 
+    [
       "dangermouse",
-      "dungeons",
       "bananaman",
-
       "mysterious",
-      "pony",
       "superted",
+
+      "powerpuff",
+      "pokemon",
+      "pony",
       "trapdoor"
     ]
   },
 
   dom: {
 
-    setOne: [
-      "squareLights",
-      "simpleSpectrum",
-      "barToFish",
+    jsConf: [
+      jsConfLogo10,
+      jsConfLogo20,
+      jsConfShapes13,
+      jsConfShapes14,
+      jsConfShapes15
+    ],
 
-      "resizeSqLights",
-      "expandLines",
-      "fish"
-    ]    
+    centStripes: [
+      concentric,
+      concentric2,
+      shell,
+      superChart,
+      superSun,
+      spectrum,
+      stripes
+    ],
+
+    diagCirc: [
+      diagonalCircles,
+      diagCircLine,
+      dots,
+      dots2,
+      triangles,
+      triangles2
+    ]
 
   }
 

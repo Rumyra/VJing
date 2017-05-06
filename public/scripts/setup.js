@@ -1,19 +1,30 @@
+const jsConfCols = {
+  blue: {hue: 234, sat: 96, light: 44},
+  dPink: {hue: 328, sat: 100, light: 44},
+  lPink: {hue: 325, sat: 55, light: 76},
+  denim: {hue: 222, sat: 41, light: 50}
+};
 
 const blackEl = document.getElementById('black'),
   whiteEl = document.getElementById('white'),
   screens = document.getElementsByClassName('screen'),
   vidScreens = document.getElementsByClassName('video'),
   domScreens = document.getElementsByClassName('dom'),
-  vidEls = document.getElementsByTagName('video');
+  videoEls = document.getElementsByTagName('video'),
+  svgEls = document.getElementsByTagName('svg'),
+  screen = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    maxRadius: (window.innerHeight-(window.innerWidth/6))/2,
+    minRadius: (window.innerHeight/10)/2
+  };
 
 
-var shapeCount = 16,
-  set = sets[0],
+var set = sets[0],
   screenNo = 1,
-  threshold = 0,
-  elColour = 0;
+  threshold = 0;
 
-const easing = BezierEasing(0.2, 0.8, 0.8, 0.2);
+const easing = BezierEasing(0.01, 0.8, 0.8, 0.01);
 const audioApi = new window.AudioContext;
 
 // variables
@@ -24,18 +35,18 @@ var audioBuffer,
 analyserNode = audioApi.createAnalyser();
 analyserNode.fftSize = 8192;
 
-function adjustFreqData() {
+function adjustFreqData(shapeNo) {
   analyserNode.getByteFrequencyData(frequencyData);
   var removed = frequencyData.slice(0,1024);
   
   var newFreqs = [], prevRangeStart = 0, prevItemCount = 0;
 
   // set up the maxPow & thus ratio based on shapeCount
-  var maxPow = Math.pow(2,shapeCount/2);
+  var maxPow = Math.pow(2,shapeNo/2);
   var ratio = 1024/maxPow;
   
   // looping - get values for new array based on shapeCount
-  for (let j=1; j<shapeCount+1; j++) {
+  for (let j=1; j<shapeNo+1; j++) {
     var itemCount, rangeStart;
 
     var pow = j/2;
@@ -67,10 +78,13 @@ function createAnalyserNode(audioSource) {
 }
 
 document.addEventListener('keyup', (event) => {
-  screenNo = event.key;
+  if ( (event.key === '1') || (event.key === '0') ) {
+    screenNo = parseInt(event.key);
+    console.log("screen: "+screenNo);
+  }
 }, false);
 
-var cssThang = 'squareLights';
+var screenDomFunc = [diagonalCircles, dots];
 
 // getUserMedia success callback -> pipe audio stream into audio API
 function gotStream(stream) {
@@ -78,8 +92,8 @@ function gotStream(stream) {
     console.log('got stream');
     var audioSource = audioApi.createMediaStreamSource(stream);
     createAnalyserNode(audioSource);
-    reqAnim(cssThang);
-    mixScreens();
+    reqAnim();
+    // mixScreens();
 }
 
 // pipe in analysing to getUserMedia
